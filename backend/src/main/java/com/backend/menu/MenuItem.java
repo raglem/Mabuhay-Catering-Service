@@ -35,6 +35,8 @@ public class MenuItem {
         this.menuCategory = menuCategory;
     }
 
+    public Integer getId() { return id; }
+
     public String getName() {
         return name;
     }
@@ -66,6 +68,10 @@ public class MenuItem {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public MenuCategory getMenuCategory() { return menuCategory; }
+
+    public void setMenuCategory(MenuCategory menuCategory) { this.menuCategory = menuCategory; }
 
     @Override
     public boolean equals(Object o) {
