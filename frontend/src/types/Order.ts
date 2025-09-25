@@ -1,7 +1,8 @@
-import type { MenuItemSimple } from "./Menu";
+import type { MenuItemSimple, MenuItemSummary } from "./Menu";
 
 export type OrderItemCreate = {
     menuItem: number;
+    menuItemSummary: MenuItemSummary;
     half_tray_quantity: number;
     full_tray_quantity: number;
 }

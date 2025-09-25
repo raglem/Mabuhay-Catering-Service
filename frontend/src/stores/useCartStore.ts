@@ -6,7 +6,6 @@ type CartStore = {
   cartItems: OrderItemCreate[];
   addToCart: (item: OrderItemCreate) => void;
   removeFromCart: (menuItemId: number) => void;
-  updateCartItem: (menuItemId: number, updatedItem: OrderItemCreate) => void;
   clearCart: () => void;
 };
 
@@ -17,16 +16,22 @@ export const useCartStore = create<CartStore>()(
 
       addToCart: (item) =>
         set((state) => {
-          const itemExists = state.cartItems.find(
+            const menuItemId = item.menuItem
+            const itemIndex = state.cartItems.findIndex(
             (ci) => ci.menuItem === item.menuItem
-          )
+            )
 
-          // Only add the item if it's not already in the cart
-          if (!itemExists) {
-            return { cartItems: [...state.cartItems, item] }
-          }
-
-          return {}
+            // If the item is already in the cart, update it
+            if (itemIndex !== -1) {
+                const updatedCartItems = state.cartItems.map((ci) =>
+                    ci.menuItem === menuItemId ? item : ci
+                );
+                return { cartItems: updatedCartItems };
+            }
+            // If the item is not already in the cart, append it
+            else{
+                return { cartItems: [...state.cartItems, item] }
+            }
         }),
 
       removeFromCart: (menuItemId) =>
@@ -35,14 +40,6 @@ export const useCartStore = create<CartStore>()(
             (ci) => ci.menuItem !== menuItemId
           ),
         })),
-
-      updateCartItem: (menuItemId, updatedItem) =>
-        set((state) => {
-          const updatedCartItems = state.cartItems.map((ci) =>
-            ci.menuItem === menuItemId ? updatedItem : ci
-          );
-          return { cartItems: updatedCartItems };
-        }),
 
       clearCart: () => set({ cartItems: [] }),
     }),

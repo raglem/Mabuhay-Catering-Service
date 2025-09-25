@@ -6,7 +6,7 @@ export default function Menu(){
         {
             id: 1,
             name: "Beef",
-            items: [
+            menuItems: [
                 {
                     id: 1,
                     name: "Beef with Broccoli",
@@ -34,7 +34,7 @@ export default function Menu(){
                         <h2 className="text-2xl">{category.name}</h2>
                     </header>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4">
-                    { category.items.map(item => (
+                    { category.menuItems.map(item => (
                         <div key={item.id}>
                             <MenuItemCard menuItem={item} />
                         </div>

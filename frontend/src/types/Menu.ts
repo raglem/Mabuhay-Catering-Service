@@ -14,10 +14,15 @@ export type MenuItemSimple = {
     image: string;
     menuCategory: number;
 }
+export type MenuItemSummary = {
+    name: string;
+    half_tray_price: number;
+    full_tray_price: number;
+}
 export type MenuCategory = {
     id: number;
     name: string;
-    items: MenuItemSimple[];
+    menuItems: MenuItemSimple[];
 }
 export type MenuCategorySimple = {
     id: number;
