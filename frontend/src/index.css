@@ -2,6 +2,8 @@
 
 @theme {
   --color-primary: #86ed80;
+  --color-primary-dark: #48b342;
+  --color-secondary: #eddc24;
 }
 
 :root {

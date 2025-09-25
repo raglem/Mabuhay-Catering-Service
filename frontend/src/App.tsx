@@ -10,7 +10,7 @@ function App() {
   return (
     <body>
       <main className="flex flex-col w-[100vw] max-w-[1280px] gap-y-8 p-8">
-        <section className="z-1 w-full">
+        <section className="flex justify-center z-1 w-full">
           <Navbar />
         </section>
         <Routes>
