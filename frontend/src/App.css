@@ -1,8 +1,32 @@
-@import "tailwindcss";
+.page{
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 10rem);
+  padding: 0px 0.5rem;
+  width: 100%;
+}
 
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.card{
+  background-color: white;
+  border: 1px solid var(--primary);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.loading-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

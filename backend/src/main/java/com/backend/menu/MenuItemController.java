@@ -1,5 +1,9 @@
 package com.backend.menu;
 
+import com.backend.menu.dtos.MenuItemCreateDTO;
+import com.backend.menu.dtos.MenuItemDetailDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,13 +17,15 @@ public class MenuItemController {
         this.menuItemService = menuItemService;
     }
 
-    @GetMapping
-    public List<MenuItem> getMenuItems() {
-        return menuItemService.getAll();
+    @GetMapping("/{id}")
+    public ResponseEntity<MenuItemDetailDTO> getMenuItems(@PathVariable Integer id) {
+        MenuItemDetailDTO menuItem = menuItemService.getMenuItemById(id);
+        return ResponseEntity.ok(menuItem);
     }
 
     @PostMapping
-    public MenuItem addMenuItem(@RequestBody MenuItem menuItem){
-        return menuItemService.insertMenuItem(menuItem);
+    public ResponseEntity<MenuItemDetailDTO> addMenuItem(@RequestBody MenuItemCreateDTO menuItem){
+        MenuItemDetailDTO saved = menuItemService.insertMenuItem(menuItem);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 }

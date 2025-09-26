@@ -1,5 +1,5 @@
-### GET request to example server
-GET http://localhost:8080/menu-item
+### GET request for menu item
+GET http://localhost:8080/menu-item/2
 
 ### Send POST request with json body
 POST http://localhost:8080/menu-item
@@ -9,7 +9,8 @@ Content-Type: application/json
   "name": "Kaldereta",
   "half_tray_price": 70.0,
   "full_tray_price": 140.0,
-  "image": "https://images.unsplash.com/photo-1756142754703-1c24f2d1fe9a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8"
+  "image": "https://images.unsplash.com/photo-1756142754703-1c24f2d1fe9a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8",
+  "menuCategory": 4
 }
 
 ### GET request to menu category
@@ -20,6 +21,9 @@ POST http://localhost:8080/menu
 Content-Type: application/json
 
 {
-  "name": "Beef",
-  "order": 1
+  "name": "Fish",
+  "order": 2
 }
+
+### DELETE request to delete menu category
+DELETE http://localhost:8080/menu/3
