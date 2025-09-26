@@ -32,6 +32,16 @@ export default function Menu(){
         fetchMenu()
     }, [])
 
+    if (loadingMenu) {
+        return (
+            <div className="page">
+                <div className="loading-wrapper">
+                    <LoadingSpinner />
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="relative page">
             { menu.map(category => (
@@ -48,10 +58,6 @@ export default function Menu(){
                     </div>
                 </div>
             ))}
-            { loadingMenu && <div className="loading-wrapper">
-                    <LoadingSpinner />
-                </div>
-            }
             { showCheckoutButton && <div className="flex flex-col items-end gap-y-2 absolute bottom-4 right-0">
                 <OrderSummary />
                 <Link to="/checkout">
