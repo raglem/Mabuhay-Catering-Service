@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("menu")
+@RequestMapping("menu/")
 public class MenuCategoryController {
     private final MenuCategoryService menuCategoryService;
 
@@ -31,7 +31,7 @@ public class MenuCategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         menuCategoryService.deleteMenuCategory(id);
         return ResponseEntity.noContent().build();
