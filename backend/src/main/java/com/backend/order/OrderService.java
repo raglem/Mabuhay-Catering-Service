@@ -1,5 +1,7 @@
 package com.backend.order;
 
+import com.backend.mail.EmailHelper;
+import com.backend.mail.EmailService;
 import com.backend.menu.MenuItem;
 import com.backend.menu.MenuItemRepository;
 import com.backend.order.dtos.OrderCreateDTO;
@@ -15,11 +17,15 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final MenuItemRepository menuItemRepository;
+    private final EmailService emailService;
 
-    public OrderService(OrderRepository orderRepository, OrderItemRepository orderItemRepository, MenuItemRepository menuItemRepository) {
+    public OrderService(
+            OrderRepository orderRepository, OrderItemRepository orderItemRepository,
+            MenuItemRepository menuItemRepository, EmailService emailService) {
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
         this.menuItemRepository = menuItemRepository;
+        this.emailService = emailService;
     }
 
     public List<OrderDetailDTO> getAllOrders(){
@@ -67,6 +73,16 @@ public class OrderService {
             orderItemRepository.save(orderItem);
             order.getOrderItems().add(orderItem);
         }
+
+        // Generate the email with a receipt to the customer
+        EmailHelper emailHelper = new EmailHelper();
+        String htmlContent = emailHelper.generateReceiptHtml(order);
+        emailService.sendOrderReceipt(
+                order.getCustomer_email(),
+                "Mabuhay Catering Order - " + order.getCreated_at(),
+                htmlContent
+        );
+
 
         return new OrderDetailDTO(order);
     }
