@@ -21,7 +21,7 @@ export default function CheckoutSummary(){
     }, 0)
 
     return (
-        <div className="card flex flex-col justify-between min-h-[min(320px,80%)] w-full max-w-[640px] overflow-auto">
+        <div className="card flex flex-col justify-between min-h-[min(320px,80vh)] w-full max-w-[640px] overflow-auto">
             <section>
                 <header className="w-full p-2 bg-primary">
                     <h3 className="text-xl text-white">Your Order</h3>

@@ -10,6 +10,7 @@ export default function MenuItemOrderCard({ menuItem }: { menuItem: MenuItemSimp
     const [fullQuantity, setFullQuantity] = useState<number>(0)
     const inCart = halfQuantity > 0 || fullQuantity > 0
     const trayBtnGroupRef = useRef<HTMLDivElement | null>(null)
+    const { cartItems } = useCartStore()
 
     // Whenever halfQuantity or fullQuantity changes, update the cart store
     const { addToCart, removeFromCart } = useCartStore()
@@ -32,6 +33,15 @@ export default function MenuItemOrderCard({ menuItem }: { menuItem: MenuItemSimp
             removeFromCart(menuItem.id)
         }
     }, [halfQuantity, fullQuantity])
+
+    // On initial render, update the quantities if the item is already in the cart
+    useEffect(() => {
+        const cartItem = cartItems.find(item => item.menuItem === menuItem.id)
+        if(cartItem){
+            setHalfQuantity(cartItem.half_tray_quantity)
+            setFullQuantity(cartItem.full_tray_quantity)
+        }
+    }, [])
 
     // If the item is not yet in the cart, clicking anywhere on the card will add one half tray order
     const addItemByClick = (e: React.MouseEvent<HTMLDivElement>) => {

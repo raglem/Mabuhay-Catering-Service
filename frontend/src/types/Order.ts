@@ -9,8 +9,9 @@ export type OrderItemCreate = {
 export type OrderCreate = {
     orderItems: OrderItemCreate[];
     customer_name: string;
-    customer_phone: string;
-    delivery_date: Date;
+    customer_phone_number: string;
+    customer_email: string;
+    delivery_time: Date;
     price: number;
 }
 export type OrderItem = {
@@ -24,7 +25,7 @@ export type Order = {
     orderItems: OrderItem[];
     customer_name: string;
     customer_phone: string;
-    delivery_date: string;
+    delivery_time: string;
     price: number;
-    ordered_at: string;
+    created_at: string;
 }
