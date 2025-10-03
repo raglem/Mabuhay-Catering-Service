@@ -7,6 +7,7 @@ import com.backend.menu.MenuItemRepository;
 import com.backend.order.dtos.OrderCreateDTO;
 import com.backend.order.dtos.OrderDetailDTO;
 import com.backend.order.dtos.OrderItemCreateDTO;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class OrderService {
         return orderDetailDTOS;
     }
 
+    @Transactional
     public OrderDetailDTO createOrder(OrderCreateDTO orderDTO){
         Order order = new Order();
 
@@ -61,7 +63,7 @@ public class OrderService {
             OrderItem orderItem = new OrderItem();
 
             // Set fields of newly created orderItem
-            MenuItem menuItem = menuItemRepository.findById(orderItemDTO.getMenuItemId())
+            MenuItem menuItem = menuItemRepository.findById(orderItemDTO.getMenuItem())
                     .orElseThrow(()-> new RuntimeException("menuItem not found"));
             orderItem.setMenuItem(menuItem);
             orderItem.setOrder(order);
@@ -88,7 +90,7 @@ public class OrderService {
     }
 
     private Double getOrderItemPrice(OrderItemCreateDTO dto){
-        Integer menuItemId = dto.getMenuItemId();
+        Integer menuItemId = dto.getMenuItem();
         MenuItem menuItem = menuItemRepository.findById(menuItemId)
                 .orElseThrow(() -> new RuntimeException("MenuItem not found with id " + menuItemId));
 
