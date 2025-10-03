@@ -37,7 +37,7 @@ export default function Menu(){
     }
 
     return (
-        <div className="page">
+        <div className="page flex flex-col">
             { menu.map(category => (
                 <div className="flex flex-col" key={category.id}>
                     <header className="w-full p-2 bg-primary text-white rounded-md">

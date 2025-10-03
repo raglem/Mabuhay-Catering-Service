@@ -1,5 +1,5 @@
 ### GET request for menu item
-GET http://localhost:8080/menu-item/2
+GET http://localhost:8080/menu-item/2/
 
 ### Send POST request with json body
 POST http://localhost:8080/menu-item
@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ### GET request to menu category
-GET http://localhost:8080/menu
+GET http://localhost:8080/menu/
 
 ### POST request to create new menu category
 POST http://localhost:8080/menu
@@ -27,3 +27,31 @@ Content-Type: application/json
 
 ### DELETE request to delete menu category
 DELETE http://localhost:8080/menu/3
+
+### GET request to show all orders
+GET http://localhost:8080/order/
+
+### POST request to show all orders
+POST http://localhost:8080/order/
+Content-Type: application/json
+
+{
+  "orderItems": [
+    {
+      "menuItemId": 3,
+      "half_tray_quantity": 2,
+      "full_tray_quantity": 0
+    },
+    {
+      "menuItemId": 2,
+      "half_tray_quantity": 0,
+      "full_tray_quantity": 1
+    }
+  ],
+  "price": 280.00,
+  "customer_name": "Jane Doe",
+  "customer_phone_number": "+1-555-123-4567",
+  "customer_email": "jane.doe@example.com",
+  "delivery_time": "2025-09-25T18:30:00Z"
+}
+}

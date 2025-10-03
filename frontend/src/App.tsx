@@ -3,12 +3,12 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Menu from './views/Menu'
 import Order from './views/Order'
-import Cart from './views/Cart'
+import Cart from './views/Checkout'
 
 function App() {
 
   return (
-    <body>
+    <div>
       <main className="flex flex-col w-[100vw] max-w-[1280px] gap-y-8 p-8">
         <section className="flex justify-center z-1 w-full">
           <Navbar />
@@ -19,7 +19,7 @@ function App() {
           <Route path="/checkout" element={<Cart />} />
         </Routes>
       </main>
-    </body>
+    </div>
   )
 }
 

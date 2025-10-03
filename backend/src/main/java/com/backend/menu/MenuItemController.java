@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("menu-item")
+@RequestMapping("menu-item/")
 public class MenuItemController {
     private final MenuItemService menuItemService;
 
@@ -17,7 +17,7 @@ public class MenuItemController {
         this.menuItemService = menuItemService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/")
     public ResponseEntity<MenuItemDetailDTO> getMenuItems(@PathVariable Integer id) {
         MenuItemDetailDTO menuItem = menuItemService.getMenuItemById(id);
         return ResponseEntity.ok(menuItem);
