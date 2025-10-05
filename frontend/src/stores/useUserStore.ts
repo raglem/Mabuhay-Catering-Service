@@ -9,17 +9,18 @@ type User = {
 
 type UserStore = {
     username: string;
-    token: string;
+    token: string | null;
     expirationTime: Date | null;
     setUser: (newUser: User) => void;
     clearUser: () => void;
+    isLoggedIn: () => boolean;
 }
 
 export const useUserStore = create<UserStore>()(
     persist(
-        (set) => ({
+        (set, get) => ({
             username: '',
-            token: '',
+            token: null,
             expirationTime: null,
             setUser: (newUser: User) => 
                 set(() => ({
@@ -30,9 +31,24 @@ export const useUserStore = create<UserStore>()(
             clearUser: () => 
                 set(() => ({
                     username: "",
-                    token: "",
+                    token: null,
                     expirationTime: null
-                }))
+                })),
+            isLoggedIn: () => {
+                const { token, expirationTime, clearUser } = get();
+        
+                if (!token || !expirationTime) {
+                    return false;
+                }
+        
+                const now = new Date();
+                if (now > new Date(expirationTime)) {
+                    clearUser();
+                    return false;
+                }
+        
+                return true;
+            },
         }), 
         {
             name: "mabuhay-user-storage"
