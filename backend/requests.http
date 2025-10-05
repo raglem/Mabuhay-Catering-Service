@@ -6,7 +6,7 @@ POST http://localhost:8080/menu-item
 Content-Type: application/json
 
 {
-  "name": "Kaldereta",
+  "name": "Test",
   "half_tray_price": 70.0,
   "full_tray_price": 140.0,
   "image": "https://images.unsplash.com/photo-1756142754703-1c24f2d1fe9a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8",
@@ -22,7 +22,7 @@ Content-Type: application/json
 
 {
   "name": "Fish",
-  "order": 2
+  "order": 1
 }
 
 ### DELETE request to delete menu category
@@ -53,4 +53,23 @@ Content-Type: application/json
   "customer_phone_number": "+1-555-123-4567",
   "customer_email": "jane.doe@example.com",
   "delivery_time": "2025-09-25T18:30:00Z"
+}
+
+### POST request to create a user
+POST http://localhost:8080/auth/register/
+Content-Type: application/json
+
+{
+  "username": "theodenmelgar",
+  "password": "mypassword",
+  "email": "theodenmelgar@gmail.com"
+}
+
+### POST request to login
+POST http://localhost:8080/auth/login/
+Content-Type: application/json
+
+{
+  "username": "theodenmelgar",
+  "password": "mypassword"
 }
