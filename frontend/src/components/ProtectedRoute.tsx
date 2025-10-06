@@ -5,10 +5,10 @@ import { useUserStore } from "../stores/useUserStore";
 
 
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
-    const { expirationTime, clearUser } = useUserStore();
+    const { token, expirationTime, clearUser } = useUserStore();
 
     // User is not logged in
-    if (!expirationTime){
+    if (!token || !expirationTime){
         // TODO: Notify user login is required
         return <Navigate to="/login" replace />
     }

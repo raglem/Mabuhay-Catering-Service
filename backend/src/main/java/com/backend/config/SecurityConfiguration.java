@@ -35,7 +35,7 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(
                             "/auth/**",   // allow login/register routes
-                            "/menu/**"     // allow routes to view menu
+                            "/**"     // temporarily allow all routes
                     ).permitAll()
                     .anyRequest().authenticated()
             )

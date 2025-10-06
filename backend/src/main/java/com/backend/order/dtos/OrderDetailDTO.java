@@ -10,7 +10,7 @@ import java.util.List;
 public class OrderDetailDTO {
     private Integer id;
 
-    private List<OrderItemSimpleDTO> orderItems;
+    private List<OrderItemDetailDTO> orderItems;
     private Double price;
 
     // Customer details
@@ -30,7 +30,7 @@ public class OrderDetailDTO {
         this.orderItems = new ArrayList<>();
 
         for (OrderItem orderItem : order.getOrderItems()){
-            this.orderItems.add(new OrderItemSimpleDTO(orderItem));
+            this.orderItems.add(new OrderItemDetailDTO(orderItem));
         }
 
         this.price = order.getPrice();
@@ -45,7 +45,7 @@ public class OrderDetailDTO {
         return id;
     }
 
-    public List<OrderItemSimpleDTO> getOrderItems() {
+    public List<OrderItemDetailDTO> getOrderItems() {
         return orderItems;
     }
 

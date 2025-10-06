@@ -1,12 +1,19 @@
 package com.backend.menu.dtos;
 
+import com.backend.menu.MenuItem;
+
 public class MenuItemSimpleDTO {
     private Integer id;
     private String name;
     private Double half_tray_price;
     private Double full_tray_price;
-    private String image;
-    private Integer menuCategory;
+
+    public MenuItemSimpleDTO(MenuItem menuItem) {
+        this.id = menuItem.getId();
+        this.name = menuItem.getName();
+        this.half_tray_price = menuItem.getHalf_tray_price();
+        this.full_tray_price = menuItem.getFull_tray_price();
+    }
 
     public Integer getId() {
         return id;
@@ -22,13 +29,5 @@ public class MenuItemSimpleDTO {
 
     public Double getFull_tray_price() {
         return full_tray_price;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public Integer getMenuCategory() {
-        return menuCategory;
     }
 }
