@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import MenuItemCard from "../components/MenuItemCard"
+import MenuItemCard from "../components/Menu/MenuItemCard"
 import type { MenuCategory } from "../types/Menu"
 import api from "../api"
 import LoadingSpinner from "../components/LoadingSpinner"

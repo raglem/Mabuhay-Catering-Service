@@ -38,14 +38,16 @@ export default function Navbar(){
                     </button>
                 </Link>
             </div>
-            <div className="flex items-center gap-x-4">
+            <div className="flex items-center">
                 <Link to="/checkout">
                     <button className="flex items-center p-4 gap-x-2 hover:cursor-pointer hover:bg-white hover:text-primary">
                         <IoCart />
                         Checkout
                     </button>
                 </Link>
-                { isAuthenticated && <IoIosLogOut className="text-3xl cursor-pointer hover:opacity-80" onClick={handleLogout} />}
+                { isAuthenticated && <button className="flex items-center p-4 gap-x-2 hover:cursor-pointer hover:bg-white hover:text-primary">
+                    <IoIosLogOut className="text-3xl cursor-pointer" onClick={handleLogout} />
+                </button>}
             </div>
         </nav>
     )

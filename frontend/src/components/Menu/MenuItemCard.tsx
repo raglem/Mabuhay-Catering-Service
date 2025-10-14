@@ -1,4 +1,4 @@
-import type { MenuItemSimple } from "../types/Menu";
+import type { MenuItemSimple } from "../../types/Menu"
 export default function MenuItemCard({ menuItem }: { menuItem: MenuItemSimple }){
     return (
         <div className="flex flex-row items-stretch border-1 border-primary-dark rounded-md shadow-lg min-h-[150px]">

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import type { MenuItemSimple } from "../types/Menu";
+import type { MenuItemSimple } from "../../types/Menu";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import { useCartStore } from "../stores/useCartStore";
-import Decrement from "./Decrement";
-import Increment from "./Increment";
+import { useCartStore } from "../../stores/useCartStore";
+import Decrement from "../Decrement";
+import Increment from "../Increment";
 
 export default function MenuItemOrderCard({ menuItem }: { menuItem: MenuItemSimple}){
     const [halfQuantity, setHalfQuantity] = useState<number>(0)
