@@ -4,6 +4,9 @@ import { useUserStore } from "../stores/useUserStore";
 import { IoIosLogOut } from "react-icons/io";
 import { useEffect, useState } from "react";
 
+import { MdOutlineRestaurantMenu } from "react-icons/md";
+import { MdOutlineShoppingBag } from "react-icons/md";
+
 export default function Navbar(){
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
     const { token, clearUser, isLoggedIn } = useUserStore()
@@ -20,14 +23,27 @@ export default function Navbar(){
     }, [token])
 
     return (
-        <nav className="flex justify-between items-center w-[50%] min-w-[300px] max-w-[640px] py-1 px-4 gap-x-8 bg-primary rounded-full text-md text-white shadow-xl">
-            <div className="flex items-center gap-x-8">
-                <Link to="/" className="cursor-pointer hover:opacity-80" >Menu</Link>
-                <Link to="/order" className="cursor-pointer hover:opacity-80">Order</Link>
+        <nav className="flex justify-between items-center w[100%] gap-x-8 bg-primary text-2xl text-white">
+            <div className="flex items-center">
+                <Link to="/">
+                    <button className="flex items-center p-4 gap-x-2 hover:cursor-pointer hover:bg-white hover:text-primary">
+                        <MdOutlineRestaurantMenu />
+                        Menu
+                    </button>
+                </Link>
+                <Link to="/order">
+                    <button className="flex items-center p-4 gap-x-2 hover:cursor-pointer hover:bg-white hover:text-primary">
+                        <MdOutlineShoppingBag />
+                        Order
+                    </button>
+                </Link>
             </div>
             <div className="flex items-center gap-x-4">
-                <Link to="/checkout" className="cursor-pointer hover:opacity-80" >
-                    <IoCart className="text-3xl" />
+                <Link to="/checkout">
+                    <button className="flex items-center p-4 gap-x-2 hover:cursor-pointer hover:bg-white hover:text-primary">
+                        <IoCart />
+                        Checkout
+                    </button>
                 </Link>
                 { isAuthenticated && <IoIosLogOut className="text-3xl cursor-pointer hover:opacity-80" onClick={handleLogout} />}
             </div>

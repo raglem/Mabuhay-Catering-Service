@@ -9,35 +9,37 @@ import ProtectedRoute from './components/ProtectedRoute'
 import AdminPanel from './views/AdminPanel'
 
 function App() {
-
   return (
     <>
-      <main className="flex flex-col w-[100vw] max-w-[1280px] min-h-[400px] gap-y-8 p-8">
-        <section className="flex justify-center z-1 w-full">
-          <Navbar />
-        </section>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Menu />} />
-          <Route path="/order" element={<Order />} />
-          <Route path="/checkout" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
+      <main className="flex flex-col min-h-screen w-screen">
+        <Navbar />
+        <section className="flex-grow flex justify-center z-1 w-full">
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Menu />} />
+            <Route path="/order" element={<Order />} />
+            <Route path="/checkout" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
 
-          {/* Private Routes */}
-          <Route path="/admin" element={
-            <ProtectedRoute>
-              <AdminPanel />
-            </ProtectedRoute>
-          } />
-        </Routes>
+            {/* Private Routes */}
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AdminPanel />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </section>
+        <footer className="flex justify-center p-2 border-t border-t-primary">
+          <Link to="/login">
+            <span className="text-black hover:text-primary hover:underline">
+              Login
+            </span>
+          </Link>
+        </footer>
       </main>
-      <footer className="flex justify-center p-2 border-t-1 border-t-primary">
-        <Link to="/login">
-          <span className="text-black hover:text-primary hover:underline">
-            Login
-          </span>
-        </Link>
-      </footer>
     </>
   )
 }

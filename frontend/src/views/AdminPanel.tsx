@@ -1,4 +1,4 @@
-import Orders from "../components/Orders";
+import Orders from "../components/AdminPanel/Orders";
 
 export default function AdminPanel(){
     return (

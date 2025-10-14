@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react"
-import type { Order } from "../types/Order"
-import api from "../api"
-import LoadingSpinner from "./LoadingSpinner"
-import OrderItemsCard from "./OrderItemsCard"
+import type { Order } from "../../types/Order"
+import api from "../../api"
+import LoadingSpinner from "../LoadingSpinner"
+import OrderItemsCard from "../OrderItemsCard"
 
 import { FaCaretUp, FaCaretDown } from "react-icons/fa6";
 
