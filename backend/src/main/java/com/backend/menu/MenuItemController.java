@@ -29,6 +29,12 @@ public class MenuItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
+    @PutMapping
+    public ResponseEntity<MenuItemDetailDTO> updateMenuItem(@RequestBody MenuItemDetailDTO menuItem){
+        MenuItemDetailDTO updatedMenuItem = menuItemService.updateMenuItem(menuItem);
+        return ResponseEntity.ok(updatedMenuItem);
+    }
+
     @DeleteMapping("/{id}/")
     public String deleteMenuItem(@PathVariable Integer id){
         menuItemService.deleteMenuItem(id);
