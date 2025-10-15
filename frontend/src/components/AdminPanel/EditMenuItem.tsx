@@ -57,7 +57,7 @@ export default function EditMenuItem (
                         />
                     </div>
                 </section>
-                <section className="flex-1 flex flex-col gap-y-4 items-center">
+                <section className="flex-1 flex flex-col gap-y-4 justify-center items-center aspect-square min-w-[200px]">
                     <img 
                         src={menuItem.image}
                         alt={menuItem.name}
