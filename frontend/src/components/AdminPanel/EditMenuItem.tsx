@@ -1,31 +1,59 @@
 import { useState } from "react";
-import type { MenuItemSimple } from "../../types/Menu";
-import { FaUpload } from "react-icons/fa6";
-import { FaEye } from "react-icons/fa6";
-import { FaEyeSlash } from "react-icons/fa6";
+import type { MenuItem, MenuItemSimple } from "../../types/Menu";
+import { FaUpload, FaEye, FaEyeSlash } from "react-icons/fa6";
+import { FaTrashAlt } from "react-icons/fa";
+import api from "../../api";
+import LoadingSpinner from "../LoadingSpinner";
 
 export default function EditMenuItem (
     { menuItem, close }: 
-    { menuItem: MenuItemSimple, close: () => void}
+    { menuItem: MenuItemSimple, close: (action: 'update' | 'delete' | 'cancel', menuItem: MenuItemSimple | null) => void}
 ){
     const [visibility, setVisibility] = useState<"Public" | "Private">("Public")
     const [name, setName] = useState<string>(menuItem.name)
     const [halfTrayPrice, setHalfTrayPrice] = useState<number>(menuItem.half_tray_price)
     const [fullTrayPrice, setFullTrayPrice] = useState<number>(menuItem.full_tray_price)
 
+    const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false)
+    const [loadingDelete, setLoadingDelete] = useState<boolean>(false)
+
     const handleUpdate = () => {
         // TODO: Handle update logic
-        close()
+        close('update', menuItem)
     }
 
     // TODO: Handle image upload
 
+    const handleDelete = async () => {
+        const confirmed = window.confirm(`Are you sure you want to delete the menu item "${menuItem.name}"? This action cannot be undone.`)
+        if(!confirmed)  return
+
+        setLoadingDelete(true)
+        try{
+            const res = await api.delete(`/menu-item/${menuItem.id}/`)
+            // TODO: Notify user deletion was successful
+            close('delete', menuItem)
+        }
+        catch(err){
+            // TODO: Show user error message
+        }
+        finally{
+            setLoadingDelete(false)
+        }
+    }
+
     return (
         <div className="card flex flex-col bg-white rounded-lg shadow-md max-w-fit mx-auto">
-            <header className="flex items-center gap-x-2 w-full p-4 border-b-1 border-primary">
-                { visibility === "Public" && <FaEye className="text-2xl text-black hover:text-primary cursor-pointer" onClick={() => setVisibility("Private")} /> }
-                { visibility === "Private" && <FaEyeSlash className="text-2xl text-black hover:text-primary cursor-pointer" onClick={() => setVisibility("Public")}/> }
-                <h2 className="text-2xl">{menuItem.name}</h2>
+            <header className="flex justify-between items-center gap-x-2 w-full p-4 border-b-1 border-primary">
+                <div className="flex items-center gap-x-2">
+                    { visibility === "Public" && <FaEye className="text-2xl text-black hover:text-primary cursor-pointer" onClick={() => setVisibility("Private")} /> }
+                    { visibility === "Private" && <FaEyeSlash className="text-2xl text-black hover:text-primary cursor-pointer" onClick={() => setVisibility("Public")}/> }
+                    <h2 className={`text-2xl transition-transform duration-300 ${visibility === "Public" ? "scale-100" : "scale-110"}`}>{menuItem.name}</h2>
+                </div>
+                <div className="flex items-center gap-x-2">
+                    { loadingDelete && <LoadingSpinner />}
+                    <FaTrashAlt className="text-2xl transition-transform duration-300 hover:text-3xl hover:text-red-500 cursor-pointer" onClick={handleDelete}/>
+                </div>
             </header>
             <div className="flex flex-row items-start gap-4 p-4">
                 <section className="flex flex-col gap-y-2 min-w-[256px]">
@@ -71,7 +99,7 @@ export default function EditMenuItem (
                 <button className="bg-primary text-white px-4 py-2 rounded-md cursor-pointer hover:opacity-80" onClick={handleUpdate}>
                     Save
                 </button>
-                <button className="bg-white border-1 border-primary text-black px-4 py-2 rounded-md cursor-pointer hover:opacity-80" onClick={close}>
+                <button className="bg-white border-1 border-primary text-black px-4 py-2 rounded-md cursor-pointer hover:opacity-80" onClick={() => close('cancel', null)}>
                     Cancel
                 </button>
             </div>

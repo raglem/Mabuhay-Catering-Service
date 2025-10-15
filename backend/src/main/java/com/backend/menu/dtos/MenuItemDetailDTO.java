@@ -2,10 +2,12 @@ package com.backend.menu.dtos;
 
 import com.backend.menu.MenuCategory;
 import com.backend.menu.MenuItem;
+import com.backend.menu.MenuItemVisibility;
 
 public class MenuItemDetailDTO {
     private Integer id;
     private String name;
+    private MenuItemVisibility visibility;
     private Double half_tray_price;
     private Double full_tray_price;
     private String image;
@@ -27,6 +29,8 @@ public class MenuItemDetailDTO {
     public String getName() {
         return name;
     }
+
+    public MenuItemVisibility getVisibility() { return visibility; }
 
     public Double getHalf_tray_price() {
         return half_tray_price;

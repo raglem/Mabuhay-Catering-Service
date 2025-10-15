@@ -72,7 +72,45 @@ export default function EditMenu(){
         setEditingMenuItemID(id)
     }
 
-    const closeEditingMenuItem = () => {
+    const closeEditingMenuItem = (action: 'update' | 'delete' | 'cancel', updatedItem: MenuItemSimple | null) => {
+        if(action === 'cancel' || updatedItem === null){
+            setEditingMenu(false)
+            setEditingMenuItemID(null)
+            return
+        }
+        else if(action === 'update'){
+            setMenu(prevMenu => prevMenu.map(category => {
+                if(category.id === updatedItem.menuCategory){
+                    return {
+                        ...category,
+                        menuItems: category.menuItems.map(item => item.id === updatedItem.id ? {
+                            id: updatedItem.id,
+                            name: updatedItem.name,
+                            half_tray_price: updatedItem.half_tray_price,
+                            full_tray_price: updatedItem.full_tray_price,
+                            image: updatedItem.image,
+                            menuCategory: updatedItem.menuCategory
+                        } : item).sort((a, b) => a.name.localeCompare(b.name))
+                    }
+                }
+                else{
+                    return category
+                }
+            }))
+        }
+        else if(action === 'delete'){
+            setMenu(prevMenu => prevMenu.map(category => {
+                if(category.id === updatedItem.menuCategory){
+                    return {
+                        ...category,
+                        menuItems: category.menuItems.filter(item => item.id !== updatedItem.id)
+                    }
+                }
+                else{
+                    return category
+                }
+            }))
+        }
         setEditingMenu(false)
         setEditingMenuItemID(null)
     }

@@ -32,6 +32,7 @@ public class MenuItemService {
 
         MenuItem menuItem = new MenuItem();
         menuItem.setName(dto.getName());
+        menuItem.setVisibility(dto.getVisibility());
         menuItem.setHalf_tray_price(dto.getHalf_tray_price());
         menuItem.setFull_tray_price(dto.getFull_tray_price());
         menuItem.setImage(dto.getImage());
@@ -40,5 +41,6 @@ public class MenuItemService {
         MenuItem saved = menuItemRepository.save(menuItem);
         return new MenuItemDetailDTO(saved);
     }
+
     public void deleteMenuItem(Integer id){ menuItemRepository.deleteById(id); }
 }

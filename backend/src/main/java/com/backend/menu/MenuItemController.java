@@ -28,4 +28,10 @@ public class MenuItemController {
         MenuItemDetailDTO saved = menuItemService.insertMenuItem(menuItem);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
+
+    @DeleteMapping("/{id}/")
+    public String deleteMenuItem(@PathVariable Integer id){
+        menuItemService.deleteMenuItem(id);
+        return "Menu item deletion successful";
+    }
 }
