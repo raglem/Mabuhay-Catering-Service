@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { FaEye, FaEyeSlash, FaUpload } from "react-icons/fa"
 import api from "../../api"
-import type { MenuItem } from "../../types/Menu"
+import type { MenuItem, MenuItemSimple } from "../../types/Menu"
 import LoadingSpinner from "../LoadingSpinner"
 
 
@@ -11,9 +11,9 @@ export default function AddMenuItem({ menuCategoryId, menuCategoryName, close }:
     menuCategoryName: string,
     close: (addedMenuItem: MenuItem | null) => void
 }){
-    const [visibility, setVisibility] = useState<"Public" | "Private">("Public")
     const [name, setName] = useState<string>("")
     const [image, setImage] = useState<string>("")
+    const [visibility, setVisibility] = useState<"Public" | "Private">("Public")
     const [halfTrayPrice, setHalfTrayPrice] = useState<number>(0)
     const [fullTrayPrice, setFullTrayPrice] = useState<number>(0)
     const [loading, setLoading] = useState<boolean>(false)
@@ -23,6 +23,7 @@ export default function AddMenuItem({ menuCategoryId, menuCategoryName, close }:
 
         const requestBody = {
             name,
+            visibility,
             half_tray_price: halfTrayPrice,
             full_tray_price: fullTrayPrice,
             image: "https://images.unsplash.com/photo-1756142754703-1c24f2d1fe9a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8",
@@ -37,6 +38,7 @@ export default function AddMenuItem({ menuCategoryId, menuCategoryName, close }:
             const addedMenuItem = {
                 id: data.id,
                 name: data.name,
+                visibility: data.visibility,
                 half_tray_price: data.half_tray_price,
                 full_tray_price: data.full_tray_price,
                 image: data.image,

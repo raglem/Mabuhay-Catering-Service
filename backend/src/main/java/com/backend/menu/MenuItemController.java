@@ -2,11 +2,10 @@ package com.backend.menu;
 
 import com.backend.menu.dtos.MenuItemCreateDTO;
 import com.backend.menu.dtos.MenuItemDetailDTO;
+import com.backend.menu.dtos.MenuItemNestedDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("menu-item/")
@@ -30,7 +29,7 @@ public class MenuItemController {
     }
 
     @PutMapping
-    public ResponseEntity<MenuItemDetailDTO> updateMenuItem(@RequestBody MenuItemDetailDTO menuItem){
+    public ResponseEntity<MenuItemDetailDTO> updateMenuItem(@RequestBody MenuItemNestedDTO menuItem){
         MenuItemDetailDTO updatedMenuItem = menuItemService.updateMenuItem(menuItem);
         return ResponseEntity.ok(updatedMenuItem);
     }

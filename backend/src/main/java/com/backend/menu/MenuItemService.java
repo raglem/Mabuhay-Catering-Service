@@ -2,6 +2,7 @@ package com.backend.menu;
 
 import com.backend.menu.dtos.MenuItemCreateDTO;
 import com.backend.menu.dtos.MenuItemDetailDTO;
+import com.backend.menu.dtos.MenuItemNestedDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -42,8 +43,8 @@ public class MenuItemService {
         return new MenuItemDetailDTO(saved);
     }
 
-    public MenuItemDetailDTO updateMenuItem(MenuItemDetailDTO dto) {
-        MenuCategory menuCategory = menuCategoryRepository.findById(dto.getId())
+    public MenuItemDetailDTO updateMenuItem(MenuItemNestedDTO dto) {
+        MenuCategory menuCategory = menuCategoryRepository.findById(dto.getMenuCategory())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid menu category id: " + dto.getMenuCategory()));
 
         MenuItem menuItem = menuItemRepository.findById(dto.getId())
@@ -56,9 +57,9 @@ public class MenuItemService {
         menuItem.setImage(dto.getImage());
         menuItem.setMenuCategory(menuCategory);
 
-        menuItemRepository.save(menuItem);
+        MenuItem updated = menuItemRepository.save(menuItem);
 
-        return new MenuItemDetailDTO(menuItem);
+        return new MenuItemDetailDTO(updated);
     }
 
     public void deleteMenuItem(Integer id){ menuItemRepository.deleteById(id); }

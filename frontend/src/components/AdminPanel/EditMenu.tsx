@@ -27,7 +27,11 @@ export default function EditMenu(){
             try {
                 const response = await api.get('/menu/')
                 const data = response.data as MenuCategory[]
-                setMenu(data)
+                const sortedData = data.map(category => ({
+                    ...category,
+                    menuItems: category.menuItems.sort((a, b) => a.name.localeCompare(b.name))
+                }))
+                setMenu(sortedData)
             } catch (error) {
                 // TODO: Show user error message
                 console.error("Error fetching menu:", error)
@@ -53,10 +57,11 @@ export default function EditMenu(){
                         menuItems: [...category.menuItems, {
                             id: addedMenuItem.id,
                             name: addedMenuItem.name,
+                            visibility: addedMenuItem.visibility,
                             half_tray_price: addedMenuItem.half_tray_price,
                             full_tray_price: addedMenuItem.full_tray_price,
                             image: addedMenuItem.image,
-                            menuCategory: addedMenuItem.menuCategory.id
+                            menuCategory: addedMenuItem.id
                         }].sort((a, b) => a.name.localeCompare(b.name))
                     }
                 }
@@ -72,38 +77,33 @@ export default function EditMenu(){
         setEditingMenuItemID(id)
     }
 
-    const closeEditingMenuItem = (action: 'update' | 'delete' | 'cancel', updatedItem: MenuItemSimple | null) => {
-        if(action === 'cancel' || updatedItem === null){
+    const closeEditingMenuItem = (action: 'update' | 'delete' | 'cancel', updatedItem: MenuItem | null) => {
+        if(action === 'cancel'){
             setEditingMenu(false)
             setEditingMenuItemID(null)
-            return
         }
-        else if(action === 'update'){
+        else if(action === 'delete'){
             setMenu(prevMenu => prevMenu.map(category => {
-                if(category.id === updatedItem.menuCategory){
+                return {
+                    ...category,
+                    menuItems: category.menuItems.filter(item => item.id !== editingMenuItemId)
+                }
+            }))
+        }
+        else if(action === 'update' && updatedItem){
+            setMenu(prevMenu => prevMenu.map(category => {
+                if(category.id === updatedItem.menuCategory.id){
                     return {
                         ...category,
                         menuItems: category.menuItems.map(item => item.id === updatedItem.id ? {
                             id: updatedItem.id,
                             name: updatedItem.name,
+                            visibility: updatedItem.visibility,
                             half_tray_price: updatedItem.half_tray_price,
                             full_tray_price: updatedItem.full_tray_price,
                             image: updatedItem.image,
-                            menuCategory: updatedItem.menuCategory
+                            menuCategory: updatedItem.menuCategory.id
                         } : item).sort((a, b) => a.name.localeCompare(b.name))
-                    }
-                }
-                else{
-                    return category
-                }
-            }))
-        }
-        else if(action === 'delete'){
-            setMenu(prevMenu => prevMenu.map(category => {
-                if(category.id === updatedItem.menuCategory){
-                    return {
-                        ...category,
-                        menuItems: category.menuItems.filter(item => item.id !== updatedItem.id)
                     }
                 }
                 else{

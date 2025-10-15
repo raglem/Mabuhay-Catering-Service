@@ -7,19 +7,52 @@ import LoadingSpinner from "../LoadingSpinner";
 
 export default function EditMenuItem (
     { menuItem, close }: 
-    { menuItem: MenuItemSimple, close: (action: 'update' | 'delete' | 'cancel', menuItem: MenuItemSimple | null) => void}
+    { menuItem: MenuItemSimple, close: (action: 'update' | 'delete' | 'cancel', menuItem: MenuItem | null) => void}
 ){
-    const [visibility, setVisibility] = useState<"Public" | "Private">("Public")
     const [name, setName] = useState<string>(menuItem.name)
+    const [visibility, setVisibility] = useState<"Public" | "Private">(menuItem.visibility)
     const [halfTrayPrice, setHalfTrayPrice] = useState<number>(menuItem.half_tray_price)
     const [fullTrayPrice, setFullTrayPrice] = useState<number>(menuItem.full_tray_price)
 
     const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false)
     const [loadingDelete, setLoadingDelete] = useState<boolean>(false)
 
-    const handleUpdate = () => {
-        // TODO: Handle update logic
-        close('update', menuItem)
+    const handleUpdate = async () => {
+        const requestBody = {
+            id: menuItem.id,
+            name,
+            visibility,
+            half_tray_price: halfTrayPrice,
+            full_tray_price: fullTrayPrice,
+            image: menuItem.image, // TODO: Handle image upload
+            menuCategory: menuItem.menuCategory
+        }
+
+        setLoadingUpdate(true)
+        try{
+            const res = await api.put(`/menu-item/`, requestBody)
+
+            const updatedMenuItem: MenuItem = {
+                id: res.data.id,
+                name: res.data.name,
+                visibility: res.data.visibility,
+                half_tray_price: res.data.half_tray_price,
+                full_tray_price: res.data.full_tray_price,
+                image: res.data.image,
+                menuCategory: res.data.menuCategory
+            }
+
+            close('update', updatedMenuItem)
+
+            // TODO: Notify user update was successful
+        }
+        catch(err){
+            console.error(err)
+            // TODO: Show user error message
+        }
+        finally{
+            setLoadingUpdate(false)
+        }
     }
 
     // TODO: Handle image upload
@@ -32,7 +65,7 @@ export default function EditMenuItem (
         try{
             const res = await api.delete(`/menu-item/${menuItem.id}/`)
             // TODO: Notify user deletion was successful
-            close('delete', menuItem)
+            close('delete', null)
         }
         catch(err){
             // TODO: Show user error message
@@ -95,14 +128,17 @@ export default function EditMenuItem (
                 </section>
                 
             </div>
-            <div className="flex justify-end p-4 gap-x-2 border-t border-t-primary">
-                <button className="bg-primary text-white px-4 py-2 rounded-md cursor-pointer hover:opacity-80" onClick={handleUpdate}>
-                    Save
-                </button>
-                <button className="bg-white border-1 border-primary text-black px-4 py-2 rounded-md cursor-pointer hover:opacity-80" onClick={() => close('cancel', null)}>
-                    Cancel
-                </button>
-            </div>
+            <footer className="flex flex-row-reverse justify-between items-center p-4 gap-x-2 border-t border-t-primary">
+                <div className="flex gap-x-2 items-center">
+                    <button className="bg-primary text-white px-4 py-2 rounded-md cursor-pointer hover:opacity-80" onClick={handleUpdate}>
+                        Save
+                    </button>
+                    <button className="bg-white border-1 border-primary text-black px-4 py-2 rounded-md cursor-pointer hover:opacity-80" onClick={() => close('cancel', null)}>
+                        Cancel
+                    </button>
+                </div>
+                { loadingUpdate && <LoadingSpinner />}
+            </footer>
         </div>
 
     )

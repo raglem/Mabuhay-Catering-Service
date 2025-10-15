@@ -1,6 +1,8 @@
+export type MenuItemVisibility = 'Public' | 'Private'
 export type MenuItem = {
     id: number;
     name: string;
+    visibility: MenuItemVisibility;
     half_tray_price: number;
     full_tray_price: number;
     image: string;
@@ -9,10 +11,12 @@ export type MenuItem = {
 export type MenuItemSimple = {
     id: number;
     name: string;
+    visibility: MenuItemVisibility;
     half_tray_price: number;
     full_tray_price: number;
     image: string;
-    menuCategory: number;
+    menuCategory: number
+
 }
 export type MenuItemSummary = {
     name: string;

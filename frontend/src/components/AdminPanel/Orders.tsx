@@ -73,89 +73,88 @@ export default function Orders(){
 
     if(error){
         return (
-            <table className="card flex flex-col w-full">
+            <div className="card flex flex-col w-full">
                 An error occurred
-            </table>
+            </div>
         )
     }
 
     if(loading){
         return (
-            <table className="card flex flex-col justify-center items-center w-full">
+            <div className="card flex flex-col justify-center items-center w-full">
                 <LoadingSpinner />
-            </table>
+            </div>
         )
     }
 
     return (
-        <table className="card min-w-full h-fit bg-white shadow-lg rounded-lg overflow-hidden">
-            <thead className="bg-primary text-white">
-                <tr
-                    className="grid grid-cols-6 w-full"
-                >
-                    <th className="flex items-center gap-x-2 p-4 text-left cursor-pointer" onClick = {() => setSortOrder("deliveryTime")}>
-                        <span className="whitespace-nowrap">Delivery Date</span>
-                        {sortOrder == "deliveryTime" && <span className="cursor-pointer">
+        <div className="card min-w-full h-fit bg-white shadow-lg rounded-lg overflow-hidden">
+            <div className="bg-primary text-white py-4 px-2">
+                <div className="grid grid-cols-6 gap-x-2 w-full">
+                    <div className="flex items-center gap-x-2 cursor-pointer" onClick={() => setSortOrder("deliveryTime")}>
+                        <span className="">Delivery Date</span>
+                        {sortOrder === "deliveryTime" && <span className="cursor-pointer">
                             {
                                 sortDirection === 'ascending' ? 
                                     <FaCaretUp onClick={() => setSortDirection("descending")} /> :
                                     <FaCaretDown onClick={() => setSortDirection("ascending")} />
                             }
                         </span>}
-                    </th>
-                    <th className="p-4 text-left">Delivery Time</th>
-                    <th className="flex items-center gap-x-2 p-4 text-left cursor-pointer" onClick = {() => setSortOrder("orderedAt")}>
+                    </div>
+                    <div className="">Delivery Time</div>
+                    <div className="flex items-center gap-x-2 cursor-pointer" onClick={() => setSortOrder("orderedAt")}>
                         <span className="whitespace-nowrap">Ordered At</span>
-                        {sortOrder == "orderedAt" && <span className="cursor-pointer">
+                        {sortOrder === "orderedAt" && <span className="cursor-pointer">
                             {
                                 sortDirection === 'ascending' ? 
                                     <FaCaretUp onClick={() => setSortDirection("descending")} /> :
                                     <FaCaretDown onClick={() => setSortDirection("ascending")} />
                             }
                         </span>}
-                    </th>
-                    <th className="p-4 text-left">Customer</th>
-                    <th className="p-4 text-left w-[10%]">Items</th>
-                    <th className="p-4 text-left w-[10%]">Total</th>
-                </tr>
-            </thead>
-            <tbody>
+                    </div>
+                    <div className="truncate">Customer</div>
+                    <div className="w-[10%]">Items</div>
+                    <div className="w-[10%]">Total</div>
+                </div>
+            </div>
+            <div>
                 { sortedOrders.map(order => {
                     const deliveryTime = new Date(order.delivery_time);
                     const orderedAt = new Date(order.created_at);
 
                     return (
-                        <tr
+                        <div
                             className="
                                 grid grid-cols-6 w-full bg-gray-100 text-gray-600 text-sm hover:bg-gray-200 hover:text-black cursor-pointer
-                                border-b border-primary
+                                border-b border-primary py-4 px-2
                             "
+                            key={order.id}
                         >
-                            <td className="p-4">{ deliveryTime.toLocaleDateString('en-US') } </td>
-                            <td className="p-4">
+                            <div className="">{ deliveryTime.toLocaleDateString('en-US') } </div>
+                            <div className="">
                                 { deliveryTime.toLocaleTimeString('en-US', {
                                     hour: 'numeric',
                                     minute: '2-digit',
                                     hour12: true,
                                 })}
-                            </td>
-                            <td className="p-4">
+                            </div>
+                            <div className="">
                                 { orderedAt.toLocaleDateString('en-US') }
-                            </td>
-                            <td className="p-4">{ order.customer_name }</td>
-                            <td className="relative p-4 w-[10%] cursor-pointer hover:underline" onClick={() => setSelectedOrdersItems(order.id)}>
+                            </div>
+                            <div className="">{ order.customer_name }</div>
+                            <div className="relative w-[10%] cursor-pointer hover:underline" onClick={() => setSelectedOrdersItems(order.id)}>
                                 { order.orderItems.length }
                                 { order.id === selectedOrderItems && order.orderItems.length > 0 && 
                                     <div className="absolute top-0 left-[100%]" ref={orderCardRef}>
                                         <OrderItemsCard items={order.orderItems} />
                                     </div>
                                 }
-                            </td>
-                            <td className="p-4 font-semibold w-[10%]">${ order.price.toFixed(2) }</td>
-                        </tr>
+                            </div>
+                            <div className="font-semibold w-[10%]">${ order.price.toFixed(2) }</div>
+                        </div>
                     )
                 })}
-            </tbody>
-        </table>
+            </div>
+        </div>
     )
 }
