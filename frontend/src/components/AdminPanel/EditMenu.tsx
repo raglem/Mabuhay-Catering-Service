@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import LoadingSpinner from "../LoadingSpinner"
 import type { MenuCategory, MenuItem, MenuItemSimple } from "../../types/Menu"
 import api from "../../api"
@@ -6,10 +6,25 @@ import MenuItemEditCard from "../Menu/MenuItemEditCard"
 import EditMenuItem from "./EditMenuItem"
 import { FaCirclePlus } from "react-icons/fa6";
 import AddMenuItem from "./AddMenuItem"
+import MenuItemHiddenCard from "../Menu/MenuItemHiddenCard"
 
+type MenuCategoryWithHidden = {
+    id: number,
+    name: string
+    visibleItems: MenuItemSimple[],
+    hiddenItems: MenuItemSimple[],
+}
 
 export default function EditMenu(){
     const [menu, setMenu] = useState<MenuCategory[]>([])
+    const visibleMenu: MenuCategoryWithHidden[] = useMemo(() => {
+        return menu.map(category => ({
+            id: category.id,
+            name: category.name,
+            visibleItems: category.menuItems.filter(item => item.visibility === "Public"),
+            hiddenItems: category.menuItems.filter(item => item.visibility === "Private")
+        }))
+    }, [menu])
     const [loadingMenu, setLoadingMenu] = useState<boolean>(false)
 
     const [addingMenuItem, setAddingMenuItem] = useState<boolean>(false)
@@ -128,7 +143,7 @@ export default function EditMenu(){
     return (
         <>
             <div className="flex flex-col">
-                { menu.map(category => (
+                { visibleMenu.map(category => (
                     <div className="flex flex-col" key={category.id}>
                         <header className="flex justify-between items-center gap-x-2 w-full p-2 bg-primary text-white rounded-md">
                             <h2 className="text-2xl">{category.name}</h2>
@@ -138,11 +153,16 @@ export default function EditMenu(){
                             />
                         </header>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4">
-                        { category.menuItems.map(item => (
-                            <div key={item.id}>
-                                <MenuItemEditCard menuItem={item} toggleEdit={openEditingMenuItem} />
-                            </div>
-                        ))}
+                            { category.visibleItems.map(item => (
+                                <div key={item.id}>
+                                    <MenuItemEditCard menuItem={item} toggleEdit={openEditingMenuItem} />
+                                </div>
+                            ))}
+                            { category.hiddenItems.map(item => (
+                                <div key={item.id}>
+                                    <MenuItemHiddenCard menuItem={item} toggleEdit={openEditingMenuItem} />
+                                </div>
+                            ))}
                         </div>
                     </div>
                 ))}

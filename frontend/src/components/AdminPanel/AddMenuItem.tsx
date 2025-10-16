@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { FaEye, FaEyeSlash, FaUpload } from "react-icons/fa"
 import api from "../../api"
-import type { MenuItem, MenuItemSimple } from "../../types/Menu"
+import type { MenuItem } from "../../types/Menu"
 import LoadingSpinner from "../LoadingSpinner"
 
 
@@ -108,8 +108,7 @@ export default function AddMenuItem({ menuCategoryId, menuCategoryName, close }:
                 </section>
                 
             </div>
-            <footer className="flex p-4 justify-between gap-x-2 border-t border-t-primary">
-                { loading && <LoadingSpinner /> }
+            <footer className="flex flex-row-reverse p-4 justify-between gap-x-2 border-t border-t-primary">
                 <div className="flex items-center gap-x-2">
                     <button className="bg-primary text-white px-4 py-2 rounded-md cursor-pointer hover:opacity-80" onClick={handleAdd}>
                         Save
@@ -118,6 +117,7 @@ export default function AddMenuItem({ menuCategoryId, menuCategoryName, close }:
                         Cancel
                     </button>
                 </div>
+                { loading && <LoadingSpinner /> }
             </footer>
         </div>
 

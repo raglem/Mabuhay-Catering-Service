@@ -15,7 +15,11 @@ export default function Menu(){
             try {
                 const response = await api.get('/menu/')
                 const data = response.data as MenuCategory[]
-                setMenu(data)
+                const sortedData = data.map(category => ({
+                    ...category,
+                    menuItems: category.menuItems.sort((a, b) => a.name.localeCompare(b.name)).filter(item => item.visibility === "Public")
+                }))
+                setMenu(sortedData)
             } catch (error) {
                 // TODO: Show user error message
                 console.error("Error fetching menu:", error)

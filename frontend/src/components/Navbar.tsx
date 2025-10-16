@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { MdOutlineShoppingBag } from "react-icons/md";
+import { FaClipboardUser } from "react-icons/fa6";
 
 export default function Navbar(){
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
@@ -37,6 +38,13 @@ export default function Navbar(){
                         Order
                     </button>
                 </Link>
+                { isAuthenticated && <Link to="/admin">
+                    <button className="flex items-center p-4 gap-x-2 hover:cursor-pointer hover:bg-white hover:text-primary">
+                        <FaClipboardUser />
+                        Admin
+                    </button>
+                </Link>
+                }
             </div>
             <div className="flex items-center">
                 <Link to="/checkout">
