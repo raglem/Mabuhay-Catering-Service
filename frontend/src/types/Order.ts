@@ -25,6 +25,7 @@ export type Order = {
     orderItems: OrderItem[];
     customer_name: string;
     customer_phone: string;
+    customer_email: string;
     delivery_time: string;
     price: number;
     created_at: string;

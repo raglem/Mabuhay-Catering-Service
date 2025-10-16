@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import type { MenuItemSimple } from "../types/Menu";
+import type { MenuItemSimple } from "../../types/Menu";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import { useCartStore } from "../stores/useCartStore";
-import Decrement from "./Decrement";
-import Increment from "./Increment";
+import { useCartStore } from "../../stores/useCartStore";
+import Decrement from "../Decrement";
+import Increment from "../Increment";
 
 export default function MenuItemOrderCard({ menuItem }: { menuItem: MenuItemSimple}){
     const [halfQuantity, setHalfQuantity] = useState<number>(0)
@@ -60,7 +60,7 @@ export default function MenuItemOrderCard({ menuItem }: { menuItem: MenuItemSimp
                     <IoIosCheckmarkCircle className="text-primary text-3xl" />
                 </div>
             }
-            <div className="flex flex-1 flex-col justify-center gap-y-3 p-2 min-h-full">
+            <div className="flex flex-1 flex-col justify-center gap-y-3 py-8 p-4 min-h-full">
                 <h2 className="text-xl font-bold">{ menuItem.name }</h2>
                 <div className="flex flex-col">
                     <h4 className="text-md">Half Tray: ${ menuItem.half_tray_price.toFixed(2) }</h4>

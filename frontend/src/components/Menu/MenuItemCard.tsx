@@ -1,8 +1,8 @@
-import type { MenuItemSimple } from "../types/Menu";
+import type { MenuItemSimple } from "../../types/Menu"
 export default function MenuItemCard({ menuItem }: { menuItem: MenuItemSimple }){
     return (
         <div className="flex flex-row items-stretch border-1 border-primary-dark rounded-md shadow-lg min-h-[150px]">
-            <div className="flex flex-1 flex-col justify-center gap-y-2 p-2 min-h-full">
+            <div className="flex flex-1 flex-col justify-center gap-y-2 p-4 min-h-full">
                 <h2 className="text-xl font-bold">{ menuItem.name }</h2>
                 <div className="flex flex-col">
                     <h4 className="text-md">Half Tray: ${ menuItem.half_tray_price.toFixed(2) }</h4>

@@ -17,7 +17,7 @@ export default function OrderSummary(){
     }
 
     return (
-        <div className="card flex flex-col max-h-[320px] overflow-auto">
+        <div className="card flex flex-col max-h-[320px] overflow-auto shadow-lg">
             <header className="w-full p-2 bg-primary">
                 <h3 className="text-xl text-white">Your Order</h3>
             </header>

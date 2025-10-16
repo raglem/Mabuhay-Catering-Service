@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import api from "../api"
-import MenuItemOrderCard from "../components/MenuItemOrderCard"
+import MenuItemOrderCard from "../components/Menu/MenuItemOrderCard"
 import type { MenuCategory } from "../types/Menu"
 import LoadingSpinner from "../components/LoadingSpinner"
 import { useCartStore } from "../stores/useCartStore"
@@ -21,7 +21,13 @@ export default function Menu(){
             try {
                 const response = await api.get('/menu/')
                 const data = response.data as MenuCategory[]
-                setMenu(data)
+                const sortedData = data.map(category => ({
+                    ...category,
+                    menuItems: category.menuItems
+                        .filter(item => item.visibility === "Public")
+                        .sort((a, b) => a.name.localeCompare(b.name))
+                }))
+                setMenu(sortedData)
             } catch (error) {
                 // TODO: Show user error message
                 console.error("Error fetching menu:", error)
@@ -46,8 +52,8 @@ export default function Menu(){
         <div className="relative page flex flex-col">
             { menu.map(category => (
                 <div className="flex flex-col" key={category.id}>
-                    <header className="w-full p-2 bg-primary text-white rounded-md">
-                        <h2 className="text-2xl">{category.name}</h2>
+                    <header className="w-full text-black border-b-1 border-b-primary">
+                        <h1 className="text-3xl">{category.name}</h1>
                     </header>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4">
                     { category.menuItems.map(item => (
@@ -58,7 +64,7 @@ export default function Menu(){
                     </div>
                 </div>
             ))}
-            { showCheckoutButton && <div className="flex flex-col items-end gap-y-2 absolute bottom-4 right-0">
+            { showCheckoutButton && <div className="flex flex-col items-end gap-y-2 absolute bottom-4 right-4">
                 <OrderSummary />
                 <Link to="/checkout">
                     <button className="flex p-4 bg-primary text-white text-3xl rounded-full transform transition-transform duration-300 hover:scale-120 cursor-pointer">

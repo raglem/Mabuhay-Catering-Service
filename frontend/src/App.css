@@ -1,8 +1,22 @@
 .page{
-  height: calc(100vh - 11rem);
+  min-height: calc(100vh - 11rem);
+  padding: 40px;
   min-height: fit-content;
-  padding: 0px 0.5rem;
   width: 100%;
+  max-width: 2048px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
 }
 
 .card{

@@ -22,7 +22,7 @@ public class MenuCategoryController {
     @GetMapping
     public ResponseEntity<List<MenuCategoryDetailDTO>> getMenuCategories() {
         List<MenuCategoryDetailDTO> categories = menuCategoryService.getAll();
-        return ResponseEntity.ok(categories); // 200 OK
+        return ResponseEntity.ok(categories);
     }
 
     @PostMapping

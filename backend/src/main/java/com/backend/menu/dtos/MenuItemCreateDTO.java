@@ -1,7 +1,10 @@
 package com.backend.menu.dtos;
 
+import com.backend.menu.MenuItemVisibility;
+
 public class MenuItemCreateDTO {
     private String name;
+    private MenuItemVisibility visibility;
     private Double half_tray_price;
     private Double full_tray_price;
     private String image;
@@ -10,6 +13,8 @@ public class MenuItemCreateDTO {
     public String getName() {
         return name;
     }
+
+    public MenuItemVisibility getVisibility() { return visibility; }
 
     public Double getHalf_tray_price() {
         return half_tray_price;

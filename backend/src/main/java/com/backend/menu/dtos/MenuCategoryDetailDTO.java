@@ -3,13 +3,14 @@ package com.backend.menu.dtos;
 import com.backend.menu.MenuCategory;
 import com.backend.menu.MenuItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuCategoryDetailDTO {
     private Integer id;
     private String name;
     private Integer order;
-    private List<MenuItem> menuItems;
+    private List<MenuItemNestedDTO> menuItems;
 
     public MenuCategoryDetailDTO() {}
 
@@ -17,7 +18,13 @@ public class MenuCategoryDetailDTO {
         this.id = menuCategory.getId();
         this.name = menuCategory.getName();
         this.order = menuCategory.getOrder();
-        this.menuItems = menuCategory.getMenuItems();
+
+        List<MenuItem> menuItems = menuCategory.getMenuItems();
+        List<MenuItemNestedDTO> dtos = new ArrayList<>();
+        for(MenuItem menuItem : menuItems) {
+            dtos.add(new MenuItemNestedDTO(menuItem));
+        }
+        this.menuItems = dtos;
     }
 
     public Integer getId() {
@@ -44,11 +51,11 @@ public class MenuCategoryDetailDTO {
         this.order = order;
     }
 
-    public List<MenuItem> getMenuItems() {
+    public List<MenuItemNestedDTO> getMenuItems() {
         return menuItems;
     }
 
-    public void setMenuItems(List<MenuItem> menuItems) {
+    public void setMenuItems(List<MenuItemNestedDTO> menuItems) {
         this.menuItems = menuItems;
     }
 }

@@ -2,6 +2,7 @@ package com.backend.menu;
 
 import com.backend.menu.dtos.MenuItemCreateDTO;
 import com.backend.menu.dtos.MenuItemDetailDTO;
+import com.backend.menu.dtos.MenuItemNestedDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -32,6 +33,7 @@ public class MenuItemService {
 
         MenuItem menuItem = new MenuItem();
         menuItem.setName(dto.getName());
+        menuItem.setVisibility(dto.getVisibility());
         menuItem.setHalf_tray_price(dto.getHalf_tray_price());
         menuItem.setFull_tray_price(dto.getFull_tray_price());
         menuItem.setImage(dto.getImage());
@@ -40,5 +42,25 @@ public class MenuItemService {
         MenuItem saved = menuItemRepository.save(menuItem);
         return new MenuItemDetailDTO(saved);
     }
+
+    public MenuItemDetailDTO updateMenuItem(MenuItemNestedDTO dto) {
+        MenuCategory menuCategory = menuCategoryRepository.findById(dto.getMenuCategory())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid menu category id: " + dto.getMenuCategory()));
+
+        MenuItem menuItem = menuItemRepository.findById(dto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid menu item id: " + dto.getId()));
+
+        menuItem.setName(dto.getName());
+        menuItem.setVisibility(dto.getVisibility());
+        menuItem.setHalf_tray_price(dto.getHalf_tray_price());
+        menuItem.setFull_tray_price(dto.getFull_tray_price());
+        menuItem.setImage(dto.getImage());
+        menuItem.setMenuCategory(menuCategory);
+
+        MenuItem updated = menuItemRepository.save(menuItem);
+
+        return new MenuItemDetailDTO(updated);
+    }
+
     public void deleteMenuItem(Integer id){ menuItemRepository.deleteById(id); }
 }

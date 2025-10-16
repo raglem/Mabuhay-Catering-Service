@@ -11,6 +11,10 @@ public class MenuItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    private MenuItemVisibility visibility;
+
     private Double half_tray_price;
     private Double full_tray_price;
     private String image;
@@ -23,7 +27,7 @@ public class MenuItem {
     public MenuItem() {}
 
     public MenuItem(
-            Integer id, String name,
+            Integer id, String name, MenuItemVisibility visibility,
             Double half_tray_price, Double full_tray_price,
             String image, MenuCategory menuCategory
     ) {
@@ -43,6 +47,12 @@ public class MenuItem {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public MenuItemVisibility getVisibility() { return visibility; }
+
+    public void setVisibility(MenuItemVisibility visibility) {
+        this.visibility = visibility;
     }
 
     public Double getHalf_tray_price() {

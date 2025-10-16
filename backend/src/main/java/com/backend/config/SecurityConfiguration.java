@@ -35,7 +35,7 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(
                             "/auth/**",   // allow login/register routes
-                            "/menu/**"     // allow routes to view menu
+                            "/**"     // temporarily allow all routes
                     ).permitAll()
                     .anyRequest().authenticated()
             )
@@ -48,18 +48,18 @@ public class SecurityConfiguration {
         return http.build();
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-
-        configuration.setAllowedOrigins(List.of("http://localhost:8005"));
-        configuration.setAllowedMethods(List.of("GET","POST"));
-        configuration.setAllowedHeaders(List.of("Authorization","Content-Type"));
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-        source.registerCorsConfiguration("/**",configuration);
-
-        return source;
-    }
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//
+//        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+//        configuration.setAllowedMethods(List.of("GET","POST", "PUT", "DELETE"));
+//        configuration.setAllowedHeaders(List.of("Authorization","Content-Type"));
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//
+//        source.registerCorsConfiguration("/**",configuration);
+//
+//        return source;
+//    }
 }
