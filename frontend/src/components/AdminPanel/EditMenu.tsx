@@ -132,7 +132,7 @@ export default function EditMenu(){
 
     if (loadingMenu) {
         return (
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center h-[256px]">
                 <div className="loading-wrapper">
                     <LoadingSpinner />
                 </div>

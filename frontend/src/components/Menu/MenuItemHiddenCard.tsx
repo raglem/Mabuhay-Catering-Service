@@ -16,9 +16,9 @@ export default function MenuItemHiddenCard({
     >
       <FaEyeSlash
         id="eye-slash"
-        className="absolute flex text-5xl z-10 text-gray-400 transition-colors duration-200 group-hover:text-green-500"
+        className="absolute flex text-5xl z-10 text-gray-400 transition-colors duration-200 group-hover:text-primary"
       />
-      <div className="relative flex flex-row items-stretch bg-gray-200 border border-primary-dark rounded-md shadow-lg min-h-[150px] transition-opacity duration-200">
+      <div className="relative flex flex-row items-stretch bg-gray-200 border border-primary rounded-md shadow-lg min-h-[150px] transition-opacity duration-200">
         <div className="flex flex-1 flex-col justify-center gap-y-2 p-4 min-h-full">
           <header className="flex gap-x-2 items-center">
             <FaRegEdit className="text-2xl" />
