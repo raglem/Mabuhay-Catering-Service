@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { MenuItem, MenuItemSimple } from "../../types/Menu";
 import { FaUpload, FaEye, FaEyeSlash } from "react-icons/fa6";
 import { FaTrashAlt } from "react-icons/fa";
 import api from "../../api";
 import LoadingSpinner from "../LoadingSpinner";
+import { CiCircleRemove } from "react-icons/ci";
 
 export default function EditMenuItem (
     { menuItem, close }: 
@@ -14,32 +15,28 @@ export default function EditMenuItem (
     const [halfTrayPrice, setHalfTrayPrice] = useState<number>(menuItem.half_tray_price)
     const [fullTrayPrice, setFullTrayPrice] = useState<number>(menuItem.full_tray_price)
 
+    const imageToUpload = useRef<File | null>(null)
+    const [filePreview, setFilePreview] = useState<string | null>(menuItem.image)
+
     const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false)
     const [loadingDelete, setLoadingDelete] = useState<boolean>(false)
 
     const handleUpdate = async () => {
-        const requestBody = {
-            id: menuItem.id,
-            name,
-            visibility,
-            half_tray_price: halfTrayPrice,
-            full_tray_price: fullTrayPrice,
-            image: menuItem.image, // TODO: Handle image upload
-            menuCategory: menuItem.menuCategory
-        }
-
         setLoadingUpdate(true)
         try{
-            const res = await api.put(`/menu-item/`, requestBody)
+            const res = await Promise.all([sendUpdateRequest(), sendImageRequest()])
+            const [updateRes, imageRes] = res
+
+            console.log(res)
 
             const updatedMenuItem: MenuItem = {
-                id: res.data.id,
-                name: res.data.name,
-                visibility: res.data.visibility,
-                half_tray_price: res.data.half_tray_price,
-                full_tray_price: res.data.full_tray_price,
-                image: res.data.image,
-                menuCategory: res.data.menuCategory
+                id: updateRes.data.id,
+                name: updateRes.data.name,
+                visibility: updateRes.data.visibility,
+                half_tray_price: updateRes.data.half_tray_price,
+                full_tray_price: updateRes.data.full_tray_price,
+                image: imageRes.data.imageUrl || "",
+                menuCategory: updateRes.data.menuCategory
             }
 
             close('update', updatedMenuItem)
@@ -55,7 +52,54 @@ export default function EditMenuItem (
         }
     }
 
-    // TODO: Handle image upload
+    const sendUpdateRequest = async () => {
+        const requestBody = {
+            id: menuItem.id,
+            name,
+            visibility,
+            half_tray_price: halfTrayPrice,
+            full_tray_price: fullTrayPrice,
+            image: menuItem.image,
+            menuCategory: menuItem.menuCategory
+        }
+        
+        return await api.put(`/menu-item/`, requestBody)
+    }
+
+    const sendImageRequest = async () => {
+        if(!imageToUpload.current){
+            return await api.delete(`/menu-item/${menuItem.id}/image/`)
+        }
+        else{
+            const formData = new FormData()
+            formData.append('image', imageToUpload.current)
+    
+            return await api.post(`/menu-item/${menuItem.id}/image/`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+        }
+    }
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(!e.target.files) return
+
+        const file = e.target.files[0]
+
+        // Only accept images
+        if(!file.type.startsWith('image/')){
+            return
+        }
+
+        imageToUpload.current = file
+        setFilePreview(URL.createObjectURL(file))
+    }
+    
+    const handleImageClear = () => {
+        imageToUpload.current = null
+        setFilePreview(null)
+    }
 
     const handleDelete = async () => {
         const confirmed = window.confirm(`Are you sure you want to delete the menu item "${menuItem.name}"? This action cannot be undone.`)
@@ -88,7 +132,7 @@ export default function EditMenuItem (
                     <FaTrashAlt className="text-2xl transition-transform duration-300 hover:text-3xl hover:text-red-500 cursor-pointer" onClick={handleDelete}/>
                 </div>
             </header>
-            <div className="flex flex-row items-start gap-4 p-4">
+            <div className="grid grid-cols-2 gap-4 py-8 px-4">
                 <section className="flex flex-col gap-y-2 min-w-[256px]">
                     <div className="flex flex-col">
                         <label htmlFor="menu-item-name">Name</label>
@@ -118,13 +162,39 @@ export default function EditMenuItem (
                         />
                     </div>
                 </section>
-                <section className="flex-1 flex flex-col gap-y-4 justify-center items-center aspect-square min-w-[200px]">
-                    <img 
-                        src={menuItem.image}
-                        alt={menuItem.name}
-                        className="object-contain max-h-40 rounded-md"
-                    />
-                    <FaUpload className="text-2xl text-primary cursor-pointer" />
+                <section className="flex flex-col justify-center items-center">
+                    { filePreview && <div className="flex flex-col gap-y-4 items-center">
+                        <img 
+                            src={filePreview}
+                            alt={menuItem.name}
+                            className="object-contain max-h-40 w-full rounded-md border-2 border-primary"
+                        />
+                        <nav className="flex justify-center items-center gap-x-4">
+                            { filePreview && <CiCircleRemove className="text-2xl text-primary cursor-pointer" onClick={handleImageClear} /> }
+                            <label htmlFor="menu-item-image-upload" className="relative border-0">
+                                <FaUpload className="text-2xl text-primary cursor-pointer" />
+                                <input 
+                                    id="menu-item-image-upload"
+                                    type="file" 
+                                    accept="image/*" 
+                                    className="hidden"
+                                    onChange={handleImageChange}
+                                />
+                            </label>
+                        </nav>
+                    </div> }
+                    { !filePreview && <div className="flex justify-center items-center h-full w-full">
+                        <label htmlFor="menu-item-image-upload" className="relative border-0">
+                            <FaUpload className="text-5xl text-primary cursor-pointer" />
+                            <input 
+                                id="menu-item-image-upload"
+                                type="file" 
+                                accept="image/*" 
+                                className="hidden"
+                                onChange={handleImageChange}
+                            />
+                        </label>
+                    </div> }
                 </section>
                 
             </div>

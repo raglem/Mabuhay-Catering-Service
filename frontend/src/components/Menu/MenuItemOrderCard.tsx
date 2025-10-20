@@ -93,7 +93,7 @@ export default function MenuItemOrderCard({ menuItem }: { menuItem: MenuItemSimp
                     </div>
                 </div>
             </div>
-            <img src={menuItem.image} alt={menuItem.name} className="object-cover min-h-full max-w-[40%] rounded-r-md" />
+            { menuItem.image.length > 0 && <img src={menuItem.image} alt={menuItem.name} className="object-cover min-h-full max-w-[40%] rounded-r-md" /> }
         </div>
     )
 }

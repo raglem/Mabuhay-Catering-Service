@@ -33,11 +33,11 @@ export default function MenuItemHiddenCard({
             </h4>
           </div>
         </div>
-        <img
+        { menuItem.image.length > 0 && <img
           src={menuItem.image}
           alt={menuItem.name}
           className="object-cover min-h-full max-w-[40%] rounded-md"
-        />
+        /> }
       </div>
     </label>
   );

@@ -26,7 +26,7 @@ public class MenuItemService {
     @Value("${aws.bucket.name}")
     private String bucketName;
 
-    @Value("${cloud.aws.region")
+    @Value("${cloud.aws.region}")
     private String region;
 
     @Autowired
@@ -83,11 +83,11 @@ public class MenuItemService {
 
     public void deleteMenuItem(Integer id){ menuItemRepository.deleteById(id); }
 
-    public String updateImageForMenuItem (Integer menuItemId, MultipartFile file) throws IOException {
+    public String updateImageForMenuItem (Integer menuItemId, MultipartFile image) throws IOException {
         MenuItem menuItem = menuItemRepository.findById(menuItemId)
                 .orElseThrow(() -> new IllegalArgumentException("Menu item with id " + menuItemId + " not found"));
 
-        if(file == null){
+        if(image == null){
             throw new IllegalArgumentException("File cannot be empty");
         }
 
@@ -107,9 +107,9 @@ public class MenuItemService {
                     PutObjectRequest.builder()
                             .bucket(bucketName)
                             .key(key)
-                            .contentType(file.getContentType())
+                            .contentType(image.getContentType())
                             .build(),
-                    RequestBody.fromBytes(file.getBytes())
+                    RequestBody.fromBytes(image.getBytes())
             );
 
             menuItem.setImage(imageUrl);
@@ -119,6 +119,28 @@ public class MenuItemService {
         } catch (S3Exception | IOException e) {
             System.out.println(e);
             throw new RuntimeException("Failed to upload file", e);
+        }
+    }
+
+    public void deleteImageForMenuItem (Integer menuItemId) {
+        MenuItem menuItem = menuItemRepository.findById(menuItemId)
+                .orElseThrow(() -> new IllegalArgumentException("Menu item with id " + menuItemId + " not found"));
+
+        try {
+            String key = menuItem.getId().toString();
+
+            s3Client.deleteObject(
+                    DeleteObjectRequest.builder()
+                            .bucket(bucketName)
+                            .key(key)
+                            .build()
+            );
+
+            menuItem.setImage("");
+            menuItemRepository.save(menuItem);
+        } catch (S3Exception e) {
+            System.out.println(e);
+            throw new RuntimeException("Failed to delete file", e);
         }
     }
 }
