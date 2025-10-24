@@ -3,7 +3,7 @@ import type { MenuItemSimple } from "../../types/Menu"
 export default function MenuItemEditCard({ menuItem, toggleEdit }: { menuItem: MenuItemSimple, toggleEdit: (id: number) => void }){
     return (
         <div 
-            className="flex flex-row items-stretch border-1 border-primary-dark rounded-md shadow-lg min-h-[150px]"
+            className="flex flex-row items-stretch border-1 border-primary rounded-md shadow-lg min-h-[150px]"
         >
             <div 
                 className="flex flex-1 flex-col justify-center gap-y-2 p-4 min-h-full hover:text-primary cursor-pointer" 

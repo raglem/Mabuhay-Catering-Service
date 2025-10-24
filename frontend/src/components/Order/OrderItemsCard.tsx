@@ -1,4 +1,4 @@
-import type { OrderItem } from "../types/Order";
+import type { OrderItem } from "../../types/Order";
 import { BsSquareHalf } from "react-icons/bs";
 import { BsSquareFill } from "react-icons/bs";
 

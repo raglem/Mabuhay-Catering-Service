@@ -1,7 +1,6 @@
 .page{
   min-height: calc(100vh - 11rem);
   padding: 40px;
-  min-height: fit-content;
   width: 100%;
   max-width: 2048px;
 }
@@ -46,4 +45,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.cursive {
+  font-family: 'Pacifico', cursive;
 }

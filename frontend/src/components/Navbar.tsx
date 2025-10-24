@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import { IoCart } from "react-icons/io5";
 import { useUserStore } from "../stores/useUserStore";
 import { IoIosLogOut } from "react-icons/io";
 import { useEffect, useState } from "react";
 
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { MdOutlineShoppingBag } from "react-icons/md";
-import { FaClipboardUser } from "react-icons/fa6";
+import { FaClipboardUser, FaPhone } from "react-icons/fa6";
+import { FaHome } from "react-icons/fa";
 
 export default function Navbar(){
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
@@ -28,6 +28,12 @@ export default function Navbar(){
             <div className="flex items-center">
                 <Link to="/">
                     <button className="flex items-center p-4 gap-x-2 hover:cursor-pointer hover:bg-white hover:text-primary">
+                        <FaHome />
+                        Home
+                    </button>
+                </Link>
+                <Link to="/menu">
+                    <button className="flex items-center p-4 gap-x-2 hover:cursor-pointer hover:bg-white hover:text-primary">
                         <MdOutlineRestaurantMenu />
                         Menu
                     </button>
@@ -47,10 +53,10 @@ export default function Navbar(){
                 }
             </div>
             <div className="flex items-center">
-                <Link to="/checkout">
+                <Link to="/call">
                     <button className="flex items-center p-4 gap-x-2 hover:cursor-pointer hover:bg-white hover:text-primary">
-                        <IoCart />
-                        Checkout
+                        <FaPhone />
+                        Review
                     </button>
                 </Link>
                 { isAuthenticated && <button className="flex items-center p-4 gap-x-2 hover:cursor-pointer hover:bg-white hover:text-primary">

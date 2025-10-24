@@ -55,7 +55,7 @@ export default function MenuItemOrderCard({ menuItem }: { menuItem: MenuItemSimp
       
     
     return (
-        <div className={`relative flex flex-row items-stretch border-1 border-primary-dark rounded-md shadow-lg ${!inCart && 'cursor-pointer'}`} onClick={(e) => addItemByClick(e)}>
+        <div className={`relative flex flex-row items-stretch border-1 border-primary rounded-md shadow-lg ${!inCart && 'cursor-pointer'}`} onClick={(e) => addItemByClick(e)}>
             { inCart && <div className="absolute top-0 right-0">
                     <IoIosCheckmarkCircle className="text-primary text-3xl" />
                 </div>
