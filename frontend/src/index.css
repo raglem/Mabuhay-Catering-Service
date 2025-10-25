@@ -1,8 +1,10 @@
 @import "tailwindcss";
+@import "@fontsource/pacifico";
+
 
 @theme {
   --color-primary: rgb(103, 190, 49);
-  --color-primary-dark: #48b342;
+  --color-primary-dark: #0d6e34;
   --color-secondary: #eddc24;
 }
 

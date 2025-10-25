@@ -6,7 +6,7 @@ import LoadingSpinner from "../components/LoadingSpinner"
 import { useCartStore } from "../stores/useCartStore"
 import { BsCartCheckFill } from "react-icons/bs";
 import { Link } from "react-router-dom"
-import OrderSummary from "../components/OrderSummary"
+import OrderSummary from "../components/Order/OrderSummary"
 
 export default function Menu(){
     const [menu, setMenu] = useState<MenuCategory[]>([])
@@ -66,7 +66,7 @@ export default function Menu(){
             ))}
             { showCheckoutButton && <div className="flex flex-col items-end gap-y-2 absolute bottom-4 right-4">
                 <OrderSummary />
-                <Link to="/checkout">
+                <Link to="/call">
                     <button className="flex p-4 bg-primary text-white text-3xl rounded-full transform transition-transform duration-300 hover:scale-120 cursor-pointer">
                         <BsCartCheckFill />
                     </button>

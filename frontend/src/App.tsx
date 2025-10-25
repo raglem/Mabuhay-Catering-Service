@@ -7,6 +7,7 @@ import Cart from './views/Checkout'
 import Login from './views/Login'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminPanel from './views/AdminPanel'
+import Home from './views/Home'
 
 function App() {
   return (
@@ -16,9 +17,10 @@ function App() {
         <section className="flex-grow flex justify-center z-1 w-full">
           <Routes>
             {/* Public Routes */}
-            <Route path="/" element={<Menu />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/menu" element={<Menu />} />
             <Route path="/order" element={<Order />} />
-            <Route path="/checkout" element={<Cart />} />
+            <Route path="/call" element={<Cart />} />
             <Route path="/login" element={<Login />} />
 
             {/* Private Routes */}

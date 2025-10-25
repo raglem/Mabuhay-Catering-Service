@@ -1,5 +1,5 @@
-import { useCartStore } from "../stores/useCartStore"
-import type { OrderItemCreate } from "../types/Order"
+import { useCartStore } from "../../stores/useCartStore"
+import type { OrderItemCreate } from "../../types/Order"
 import { BsSquareHalf } from "react-icons/bs";
 import { BsSquareFill } from "react-icons/bs";
 
@@ -21,7 +21,7 @@ export default function OrderSummary(){
             <header className="w-full p-2 bg-primary">
                 <h3 className="text-xl text-white">Your Order</h3>
             </header>
-            <ol className="flex flex-col w-full gap-y-2 p-2 overflow-x-auto">
+            <ol className="flex flex-col h-full w-full gap-y-2 p-2 overflow-x-auto">
                 { orderedCartItems.map((item: OrderItemCreate) => (
                     <li className="flex flex-row items-center gap-x-6 md:gap-x-8 not-last-of-type:border-b-1 border-b-primary hover:bg-gray" key={item.menuItem}>
                         <span className="w-[25%]">{ item.menuItemSummary.name }</span>

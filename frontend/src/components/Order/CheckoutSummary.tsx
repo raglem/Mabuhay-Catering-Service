@@ -1,5 +1,5 @@
-import { useCartStore } from "../stores/useCartStore"
-import type { OrderItemCreate } from "../types/Order"
+import { useCartStore } from "../../stores/useCartStore"
+import type { OrderItemCreate } from "../../types/Order"
 import { BsSquareHalf } from "react-icons/bs";
 import { BsSquareFill } from "react-icons/bs";
 import { IoBagRemoveOutline } from "react-icons/io5";
@@ -23,11 +23,11 @@ export default function CheckoutSummary(){
     }, 0)
 
     return (
-        <div className="card flex flex-col justify-between min-h-[min(320px,80vh)] w-full max-w-[640px] overflow-auto">
+        <div className="card flex flex-col min-h-[min(320px,80vh)] w-full overflow-auto">
             <header className="w-full p-2 bg-primary">
                 <h3 className="text-xl text-white">Your Order</h3>
             </header>
-            <ol className="flex flex-col h-full w-full gap-y-2 p-2 overflow-x-auto">
+            <ol className="flex flex-1 flex-col w-full gap-y-2 p-2 overflow-x-auto">
                 { orderedCartItems.map((item: OrderItemCreate) => (
                     <li className="flex justify-between items-center gap-x-6 md:gap-x-8 border-b-1 border-b-primary hover:bg-gray" key={item.menuItem}>
                         <span className="flex flex-1">{ item.menuItemSummary.name }</span>
