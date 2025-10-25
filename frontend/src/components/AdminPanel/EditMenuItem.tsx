@@ -107,7 +107,7 @@ export default function EditMenuItem (
 
         setLoadingDelete(true)
         try{
-            const res = await api.delete(`/menu-item/${menuItem.id}/`)
+            await api.delete(`/menu-item/${menuItem.id}/`)
             // TODO: Notify user deletion was successful
             close('delete', null)
         }

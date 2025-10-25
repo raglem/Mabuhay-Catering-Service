@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { FaEye, FaEyeSlash, FaUpload } from "react-icons/fa"
 import api from "../../api"
 import type { MenuItem } from "../../types/Menu"
 import LoadingSpinner from "../LoadingSpinner"
+import { CiCircleRemove } from "react-icons/ci"
 
 
 
@@ -12,28 +13,45 @@ export default function AddMenuItem({ menuCategoryId, menuCategoryName, close }:
     close: (addedMenuItem: MenuItem | null) => void
 }){
     const [name, setName] = useState<string>("")
-    const [image, setImage] = useState<string>("")
     const [visibility, setVisibility] = useState<"Public" | "Private">("Public")
     const [halfTrayPrice, setHalfTrayPrice] = useState<number>(0)
     const [fullTrayPrice, setFullTrayPrice] = useState<number>(0)
+
+    const imageToUpload = useRef<File | null>(null)
+    const [filePreview, setFilePreview] = useState<string | null>(null)
+
     const [loading, setLoading] = useState<boolean>(false)
 
     const handleAdd = async () => {
-        // TODO: Handle update logic
-
         const requestBody = {
             name,
             visibility,
             half_tray_price: halfTrayPrice,
             full_tray_price: fullTrayPrice,
-            image: "https://images.unsplash.com/photo-1756142754703-1c24f2d1fe9a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8",
+            image: "",
             menuCategory: menuCategoryId
         }
 
         setLoading(true)
         try{
-            const res = await api.post('/menu-item/', requestBody)
-            const data = res.data as MenuItem
+            // Create the menu item and retrieve the id first
+            const menuItemRes = await api.post('/menu-item/', requestBody)
+            const data = menuItemRes.data as MenuItem
+
+            // With the menu item id, upload an image
+            // Store the imageUrl from the response body
+            let imageUrl = ""
+            if(imageToUpload.current){
+                const formData = new FormData()
+                formData.append('image', imageToUpload.current)
+        
+                const imageUploadRes = await api.post(`/menu-item/${data.id}/image/`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                imageUrl = imageUploadRes.data.imageUrl
+            }
 
             const addedMenuItem = {
                 id: data.id,
@@ -41,7 +59,7 @@ export default function AddMenuItem({ menuCategoryId, menuCategoryName, close }:
                 visibility: data.visibility,
                 half_tray_price: data.half_tray_price,
                 full_tray_price: data.full_tray_price,
-                image: data.image,
+                image: imageUrl,
                 menuCategory: data.menuCategory
             }
 
@@ -58,7 +76,24 @@ export default function AddMenuItem({ menuCategoryId, menuCategoryName, close }:
         close(null)
     }
 
-    // TODO: Handle image upload
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(!e.target.files) return
+
+        const file = e.target.files[0]
+
+        // Only accept images
+        if(!file.type.startsWith('image/')){
+            return
+        }
+
+        imageToUpload.current = file
+        setFilePreview(URL.createObjectURL(file))
+    }
+    
+    const handleImageClear = () => {
+        imageToUpload.current = null
+        setFilePreview(null)
+    }
 
     return (
         <div className="card flex flex-col bg-white rounded-lg shadow-md max-w-fit mx-auto">
@@ -98,13 +133,38 @@ export default function AddMenuItem({ menuCategoryId, menuCategoryName, close }:
                     </div>
                 </section>
                 <section className="flex-1 flex flex-col gap-y-4 justify-center items-center aspect-square h-[200px]">
-                    {image && 
+                { filePreview && <div className="flex flex-col gap-y-4 items-center">
                         <img 
-                            src={image}
-                            alt={name}
-                            className="object-contain max-h-40 rounded-md"
-                        />}
-                    <FaUpload className="text-2xl text-primary cursor-pointer" />
+                            src={filePreview}
+                            alt="Image Upload"
+                            className="object-contain max-h-40 w-full rounded-md border-2 border-primary"
+                        />
+                        <nav className="flex justify-center items-center gap-x-4">
+                            { filePreview && <CiCircleRemove className="text-2xl text-primary cursor-pointer" onClick={handleImageClear} /> }
+                            <label htmlFor="menu-item-image-upload" className="relative border-0">
+                                <FaUpload className="text-2xl text-primary cursor-pointer" />
+                                <input 
+                                    id="menu-item-image-upload"
+                                    type="file" 
+                                    accept="image/*" 
+                                    className="hidden"
+                                    onChange={handleImageChange}
+                                />
+                            </label>
+                        </nav>
+                    </div> }
+                    { !filePreview && <div className="flex justify-center items-center h-full w-full">
+                        <label htmlFor="menu-item-image-upload" className="relative border-0">
+                            <FaUpload className="text-5xl text-primary cursor-pointer" />
+                            <input 
+                                id="menu-item-image-upload"
+                                type="file" 
+                                accept="image/*" 
+                                className="hidden"
+                                onChange={handleImageChange}
+                            />
+                        </label>
+                    </div> }
                 </section>
                 
             </div>

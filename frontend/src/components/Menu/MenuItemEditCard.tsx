@@ -3,14 +3,16 @@ import type { MenuItemSimple } from "../../types/Menu"
 export default function MenuItemEditCard({ menuItem, toggleEdit }: { menuItem: MenuItemSimple, toggleEdit: (id: number) => void }){
     return (
         <div 
-            className="flex flex-row items-stretch border-1 border-primary rounded-md shadow-lg min-h-[150px]"
+            className="flex flex-row items-stretch border-1 border-primary rounded-md shadow-lg min-h-[150px] h-full"
         >
             <div 
                 className="flex flex-1 flex-col justify-center gap-y-2 p-4 min-h-full hover:text-primary cursor-pointer" 
                 onClick={() => toggleEdit(menuItem.id)}
             >
                 <header className="flex gap-x-2 items-center">
-                    <FaRegEdit className="text-2xl" />
+                    <span>
+                        <FaRegEdit className="text-2xl" />
+                    </span>
                     <h2 className="text-xl text-black font-bold">{ menuItem.name }</h2>
                 </header>
                 <div className="flex flex-col text-black">
