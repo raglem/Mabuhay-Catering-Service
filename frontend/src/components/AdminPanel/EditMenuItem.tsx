@@ -5,6 +5,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import api from "../../api";
 import LoadingSpinner from "../LoadingSpinner";
 import { CiCircleRemove } from "react-icons/ci";
+import { toast } from "react-toastify";
 
 export default function EditMenuItem (
     { menuItem, close }: 
@@ -12,8 +13,8 @@ export default function EditMenuItem (
 ){
     const [name, setName] = useState<string>(menuItem.name)
     const [visibility, setVisibility] = useState<"Public" | "Private">(menuItem.visibility)
-    const [halfTrayPrice, setHalfTrayPrice] = useState<number>(menuItem.half_tray_price)
-    const [fullTrayPrice, setFullTrayPrice] = useState<number>(menuItem.full_tray_price)
+    const [halfTrayPrice, setHalfTrayPrice] = useState<string>(menuItem.half_tray_price.toString())
+    const [fullTrayPrice, setFullTrayPrice] = useState<string>(menuItem.full_tray_price.toString())
 
     const imageToUpload = useRef<File | null>(null)
     const [filePreview, setFilePreview] = useState<string | null>(menuItem.image)
@@ -22,6 +23,11 @@ export default function EditMenuItem (
     const [loadingDelete, setLoadingDelete] = useState<boolean>(false)
 
     const handleUpdate = async () => {
+        if (isNaN(Number(halfTrayPrice)) || isNaN(Number(fullTrayPrice))) {
+            toast.error("Please enter valid numeric values for prices");
+            return;
+        }
+
         setLoadingUpdate(true)
         try{
             const res = await Promise.all([sendUpdateRequest(), sendImageRequest()])
@@ -35,17 +41,16 @@ export default function EditMenuItem (
                 visibility: updateRes.data.visibility,
                 half_tray_price: updateRes.data.half_tray_price,
                 full_tray_price: updateRes.data.full_tray_price,
-                image: imageRes.data.imageUrl || "",
+                image: imageRes?.data?.imageUrl || "",
                 menuCategory: updateRes.data.menuCategory
             }
 
             close('update', updatedMenuItem)
-
-            // TODO: Notify user update was successful
+            toast.success(`Menu item "${updatedMenuItem.name}" updated successfully`)
         }
         catch(err){
             console.error(err)
-            // TODO: Show user error message
+            toast.error(`Something went wrong updating the menu item "${menuItem.name}"`)
         }
         finally{
             setLoadingUpdate(false)
@@ -57,11 +62,12 @@ export default function EditMenuItem (
             id: menuItem.id,
             name,
             visibility,
-            half_tray_price: halfTrayPrice,
-            full_tray_price: fullTrayPrice,
+            half_tray_price: Number(halfTrayPrice),
+            full_tray_price: Number(fullTrayPrice),
             image: menuItem.image,
             menuCategory: menuItem.menuCategory
         }
+        console.log(requestBody)
         
         return await api.put(`/menu-item/`, requestBody)
     }
@@ -108,11 +114,11 @@ export default function EditMenuItem (
         setLoadingDelete(true)
         try{
             await api.delete(`/menu-item/${menuItem.id}/`)
-            // TODO: Notify user deletion was successful
+            toast.success(`Menu item "${menuItem.name}" deleted successfully`)
             close('delete', null)
         }
         catch(err){
-            // TODO: Show user error message
+            toast.error(`Something went wrong deleting the menu item "${menuItem.name}"`)
         }
         finally{
             setLoadingDelete(false)
@@ -145,19 +151,27 @@ export default function EditMenuItem (
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="half-tray-price">Half Tray Price</label>
-                        <input 
-                            type="number" id="half-tray-price"
+                        <input
+                            id="half-tray-price" type="text"
+                            inputMode="decimal" pattern="[0-9]*"
                             value={halfTrayPrice}
-                            onChange={(e) => setHalfTrayPrice(Number(e.target.value))}
+                            onChange={(e) => {
+                                const newVal = e.target.value;
+                                setHalfTrayPrice(newVal);
+                            }}
                             className="p-1 outline-none border border-primary rounded-md w-full"
                         />
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="full-tray-price">Full Tray Price</label>
-                        <input 
-                            type="number" id="full-tray-price"
+                        <input
+                            type="text" id="full-tray-price"
+                            inputMode="decimal" pattern="[0-9]*"
                             value={fullTrayPrice}
-                            onChange={(e) => setFullTrayPrice(Number(e.target.value))}
+                            onChange={(e) => {
+                                const newVal = e.target.value;
+                                setFullTrayPrice(newVal);
+                            }}
                             className="p-1 outline-none border border-primary rounded-md w-full"
                         />
                     </div>

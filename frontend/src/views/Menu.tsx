@@ -3,10 +3,13 @@ import MenuItemCard from "../components/Menu/MenuItemCard"
 import type { MenuCategory } from "../types/Menu"
 import api from "../api"
 import LoadingSpinner from "../components/LoadingSpinner"
+import { toast } from "react-toastify"
+import Error from "../components/Error"
 
 export default function Menu(){
     const [menu, setMenu] = useState<MenuCategory[]>([])
     const [loadingMenu, setLoadingMenu] = useState<boolean>(false)
+    const [error, setError] = useState<boolean>(false)
 
     // Fetch menu
     useEffect(() => {
@@ -21,8 +24,8 @@ export default function Menu(){
                 }))
                 setMenu(sortedData)
             } catch (error) {
-                // TODO: Show user error message
-                console.error("Error fetching menu:", error)
+                toast.error('Something went wrong fetching the menu')
+                setError(true)
             } finally {
                 setLoadingMenu(false)
             }
@@ -35,6 +38,16 @@ export default function Menu(){
             <div className="page">
                 <div className="loading-wrapper">
                     <LoadingSpinner />
+                </div>
+            </div>
+        )
+    }
+
+    if (error){
+        return (
+            <div className="page">
+                <div className="loading-wrapper">
+                    <Error message="Order items could not be loaded" />
                 </div>
             </div>
         )

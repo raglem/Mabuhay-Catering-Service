@@ -4,6 +4,7 @@ import api from "../../api"
 import type { MenuItem } from "../../types/Menu"
 import LoadingSpinner from "../LoadingSpinner"
 import { CiCircleRemove } from "react-icons/ci"
+import { toast } from "react-toastify"
 
 
 
@@ -14,8 +15,8 @@ export default function AddMenuItem({ menuCategoryId, menuCategoryName, close }:
 }){
     const [name, setName] = useState<string>("")
     const [visibility, setVisibility] = useState<"Public" | "Private">("Public")
-    const [halfTrayPrice, setHalfTrayPrice] = useState<number>(0)
-    const [fullTrayPrice, setFullTrayPrice] = useState<number>(0)
+    const [halfTrayPrice, setHalfTrayPrice] = useState<string>("0")
+    const [fullTrayPrice, setFullTrayPrice] = useState<string>("0")
 
     const imageToUpload = useRef<File | null>(null)
     const [filePreview, setFilePreview] = useState<string | null>(null)
@@ -26,10 +27,15 @@ export default function AddMenuItem({ menuCategoryId, menuCategoryName, close }:
         const requestBody = {
             name,
             visibility,
-            half_tray_price: halfTrayPrice,
-            full_tray_price: fullTrayPrice,
+            half_tray_price: Number(halfTrayPrice),
+            full_tray_price: Number(fullTrayPrice),
             image: "",
             menuCategory: menuCategoryId
+        }
+
+        if (isNaN(Number(halfTrayPrice)) || isNaN(Number(fullTrayPrice))) {
+            toast.error("Please enter valid numeric values for prices");
+            return;
         }
 
         setLoading(true)
@@ -64,10 +70,10 @@ export default function AddMenuItem({ menuCategoryId, menuCategoryName, close }:
             }
 
             close(addedMenuItem)
-            // TODO: Notify user menu item addition succeeded
+            toast.success(`${name} added successfully to menu`)
         }
         catch(err){
-            // TODO: Show user error message
+            toast.error(`Something went wrong adding the ${name} menu item`)
         }
         finally{
             setLoading(false)
@@ -115,19 +121,32 @@ export default function AddMenuItem({ menuCategoryId, menuCategoryName, close }:
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="half-tray-price">Half Tray Price</label>
-                        <input 
-                            type="number" id="half-tray-price"
+                        <input
+                            type="text" id="half-tray-price"
+                            inputMode="decimal" pattern="[0-9]*"
                             value={halfTrayPrice}
-                            onChange={(e) => setHalfTrayPrice(Number(e.target.value))}
+                            onChange={(e) => {
+                                const newVal = e.target.value;
+                                setHalfTrayPrice(newVal);
+
+                                // Automatically update full tray price
+                                if (Number(newVal) >= 0){
+                                    setFullTrayPrice((Number(newVal) * 2).toString());
+                                }
+                            }}
                             className="p-1 outline-none border border-primary rounded-md w-full"
                         />
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="full-tray-price">Full Tray Price</label>
-                        <input 
-                            type="number" id="full-tray-price"
+                        <input
+                            type="text" id="full-tray-price"
+                            inputMode="decimal" pattern="[0-9]*"
                             value={fullTrayPrice}
-                            onChange={(e) => setFullTrayPrice(Number(e.target.value))}
+                            onChange={(e) => {
+                                const newVal = e.target.value;
+                                setFullTrayPrice(newVal);
+                            }}
                             className="p-1 outline-none border border-primary rounded-md w-full"
                         />
                     </div>

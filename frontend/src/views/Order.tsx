@@ -6,11 +6,15 @@ import LoadingSpinner from "../components/LoadingSpinner"
 import { useCartStore } from "../stores/useCartStore"
 import { BsCartCheckFill } from "react-icons/bs";
 import { Link } from "react-router-dom"
+import Error from "../components/Error"
 import OrderSummary from "../components/Order/OrderSummary"
+import { toast } from "react-toastify"
 
 export default function Menu(){
     const [menu, setMenu] = useState<MenuCategory[]>([])
     const [loadingMenu, setLoadingMenu] = useState<boolean>(false)
+    const [error, setError] = useState<boolean>(false)
+
     const { cartItems } = useCartStore()
     const showCheckoutButton = cartItems.length > 0
 
@@ -29,7 +33,7 @@ export default function Menu(){
                 }))
                 setMenu(sortedData)
             } catch (error) {
-                // TODO: Show user error message
+                toast.error('Something went wrong fetching the menu')
                 console.error("Error fetching menu:", error)
             } finally {
                 setLoadingMenu(false)
@@ -43,6 +47,16 @@ export default function Menu(){
             <div className="page">
                 <div className="loading-wrapper">
                     <LoadingSpinner />
+                </div>
+            </div>
+        )
+    }
+
+    if (error){
+        return (
+            <div className="page">
+                <div className="loading-wrapper">
+                    <Error message="The menu could not be loaded" />
                 </div>
             </div>
         )

@@ -6,6 +6,7 @@ import OrderItemsCard from "../Order/OrderItemsCard"
 
 import { FaCaretUp, FaCaretDown } from "react-icons/fa6";
 import { BsFillArrowLeftSquareFill, BsFillArrowRightSquareFill } from "react-icons/bs";
+import { toast } from "react-toastify"
 
 export default function Orders(){
     const [orders, setOrders] = useState<Order[]>([])
@@ -57,7 +58,7 @@ export default function Orders(){
                 setOrders(data)
             }
             catch(err){
-                // TODO: Notify user an error has occurred
+                toast.error('Something went wrong fetching the orders')
                 setError(true)
             }
             finally{

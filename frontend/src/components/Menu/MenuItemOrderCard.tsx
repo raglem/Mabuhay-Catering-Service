@@ -55,26 +55,47 @@ export default function MenuItemOrderCard({ menuItem }: { menuItem: MenuItemSimp
       
     
     return (
-        <div className={`relative flex flex-row items-stretch border-1 border-primary rounded-md shadow-lg min-h-[150px] h-full ${!inCart && 'cursor-pointer'}`} onClick={(e) => addItemByClick(e)}>
+        <div className={`relative flex items-stretch border-1 border-primary rounded-md shadow-lg min-h-[150px] h-full ${!inCart && 'cursor-pointer'}`} onClick={(e) => addItemByClick(e)}>
             { inCart && <div className="absolute top-0 right-0">
                     <IoIosCheckmarkCircle className="text-primary text-3xl" />
                 </div>
             }
-            <div className="flex flex-1 flex-col justify-center gap-y-3 py-8 p-4 min-h-full">
-                <h2 className="text-xl font-bold">{ menuItem.name }</h2>
-                <div className="flex flex-col">
-                    <h4 className="text-md">Half Tray: ${ menuItem.half_tray_price.toFixed(2) }</h4>
-                    <h4 className="text-md">Full Tray: ${ menuItem.full_tray_price.toFixed(2) }</h4>
+            <div className={`flex flex-1 ${ menuItem.image ? 'flex-col justify-center': 'flex-row justify-between items-center' } gap-y-3 py-8 p-4 min-h-full`}>
+                <div className="flex flex-col gap-y-3">
+                    <h2 className="text-xl font-bold">{ menuItem.name }</h2>
+                    <div className="flex flex-col">
+                        { menuItem.half_tray_price !== 0 && <h4 className="text-md">Half Tray: ${ menuItem.half_tray_price.toFixed(2) }</h4>}
+                        { menuItem.half_tray_price === 0 && <h4 className="text-md line-through">Half Tray: N/A</h4>}
+                        
+                        { menuItem.full_tray_price !== 0 && <h4 className="text-md">Full Tray: ${ menuItem.full_tray_price.toFixed(2) }</h4>}
+                        { menuItem.full_tray_price === 0 && <h4 className="text-md line-through">Full Tray: N/A</h4>}
+                    </div>
                 </div>
                 <div className="flex flex-col gap-y-2 w-fit" ref={trayBtnGroupRef}>
                     <div className="flex justify-between items-center py-1 px-3 w-full gap-x-4 bg-primary text-white rounded-md">
                         Half
                         <div className="flex justify-evenly items-center gap-x-2">
-                            <button onClick={() => setHalfQuantity(Math.max(0, halfQuantity - 1))}>
+                            <button 
+                                disabled={menuItem.half_tray_price === 0}
+                                className={`${
+                                    menuItem.half_tray_price === 0
+                                    ? "opacity-50 cursor-not-allowed"
+                                    : ""
+                                }`}
+                                onClick={() => setHalfQuantity(Math.max(0, halfQuantity - 1))}
+                            >
                                 <Decrement />
                             </button>
                             <span className="flex justify-center items-center border-1 aspect-square h-8">{ halfQuantity }</span>
-                            <button onClick={() => setHalfQuantity(halfQuantity + 1)}>
+                            <button 
+                                disabled={menuItem.full_tray_price === 0}
+                                className={`${
+                                    menuItem.full_tray_price === 0
+                                    ? "opacity-50 cursor-not-allowed"
+                                    : ""
+                                }`} 
+                                onClick={() => setFullQuantity(fullQuantity + 1)}
+                            >
                                 <Increment />
                             </button>
                         </div>

@@ -7,6 +7,7 @@ import EditMenuItem from "./EditMenuItem"
 import { FaCirclePlus } from "react-icons/fa6";
 import AddMenuItem from "./AddMenuItem"
 import MenuItemHiddenCard from "../Menu/MenuItemHiddenCard"
+import { toast } from "react-toastify"
 
 type MenuCategoryWithHidden = {
     id: number,
@@ -46,10 +47,10 @@ export default function EditMenu(){
                     ...category,
                     menuItems: category.menuItems.sort((a, b) => a.name.localeCompare(b.name))
                 }))
+                console.log(sortedData)
                 setMenu(sortedData)
             } catch (error) {
-                // TODO: Show user error message
-                console.error("Error fetching menu:", error)
+                toast.error('Something went wrong fetching the menu')
             } finally {
                 setLoadingMenu(false)
             }
