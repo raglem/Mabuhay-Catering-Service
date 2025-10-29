@@ -38,7 +38,7 @@ POST http://localhost:8080/menu
 Content-Type: application/json
 
 {
-  "name": "Fish",
+  "name": "Beef",
   "order": 1
 }
 
@@ -70,16 +70,6 @@ Content-Type: application/json
   "customer_phone_number": "+1-555-123-4567",
   "customer_email": "jane.doe@example.com",
   "delivery_time": "2025-09-25T18:30:00Z"
-}
-
-### POST request to create a user
-POST http://localhost:8080/auth/register/
-Content-Type: application/json
-
-{
-  "username": "theodenmelgar",
-  "password": "mypassword",
-  "email": "theodenmelgar@gmail.com"
 }
 
 ### POST request to login
