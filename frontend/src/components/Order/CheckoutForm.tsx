@@ -1,8 +1,8 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useMemo, useState } from "react";
-import { useCartStore } from "../stores/useCartStore";
-import api from "../api";
-import LoadingSpinner from "./LoadingSpinner";
+import { useCartStore } from "../../stores/useCartStore";
+import api from "../../api";
+import LoadingSpinner from "../LoadingSpinner";
 
 type OrderItemCreate = {
     menuItem: number;
