@@ -5,19 +5,21 @@ import api from "../api"
 import LoadingSpinner from "../components/LoadingSpinner"
 import { toast } from "react-toastify"
 import Error from "../components/Error"
+import { useMenuStore } from "../stores/useMenuStore"
 
 export default function Menu(){
     const [menu, setMenu] = useState<MenuCategory[]>([])
     const [loadingMenu, setLoadingMenu] = useState<boolean>(false)
     const [error, setError] = useState<boolean>(false)
+    const { getMenu } = useMenuStore()
 
     // Fetch menu
     useEffect(() => {
         const fetchMenu = async () => {
             setLoadingMenu(true)
             try {
-                const response = await api.get('/menu/')
-                const data = response.data as MenuCategory[]
+                const response = await getMenu()
+                const data = response
                 const sortedData = data.map(category => ({
                     ...category,
                     menuItems: category.menuItems.sort((a, b) => a.name.localeCompare(b.name)).filter(item => item.visibility === "Public")

@@ -37,13 +37,13 @@ function App() {
         />
         </Routes>
       </section>
-      <footer className="flex justify-center p-2 border-t border-t-primary">
+      {/* <footer className="flex justify-center p-2 border-t border-t-primary">
         <Link to="/login">
         <span className="text-black hover:text-primary hover:underline">
           Staff Login
         </span>
         </Link>
-      </footer>
+      </footer> */}
       </main>
       <ToastContainer
       position="top-right"
