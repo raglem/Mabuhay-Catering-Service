@@ -23,3 +23,6 @@ cloud.aws.credentials.secret-key={S3_SECRET_KEY}
 cloud.aws.region={S3_REGION}
 
 app.frontend.url={FRONTEND_URL}
+
+pg_dump -h mabuhay-db.clomemis6xpg.us-west-1.rds.amazonaws.com -U theodenmelgar -d mabuhay-db -Fc -f dump_file.dump
+pg_dump -h mabuhaydb.clomemis6xpg.us-west-1.rds.amazonaws.com -U theodenmelgar -d mabuhaydb -Fc -f dump_file.dump

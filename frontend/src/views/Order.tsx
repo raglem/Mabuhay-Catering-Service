@@ -9,13 +9,11 @@ import { Link } from "react-router-dom"
 import Error from "../components/Error"
 import OrderSummary from "../components/Order/OrderSummary"
 import { toast } from "react-toastify"
-import { useMenuStore } from "../stores/useMenuStore"
 
 export default function Menu(){
     const [menu, setMenu] = useState<MenuCategory[]>([])
     const [loadingMenu, setLoadingMenu] = useState<boolean>(false)
     const [showOrderSummary, setShowOrderSummary] = useState<boolean>(true)
-    const { getMenu } = useMenuStore()
     const [error, setError] = useState<boolean>(false)
 
     const { cartItems } = useCartStore()
@@ -26,13 +24,11 @@ export default function Menu(){
         const fetchMenu = async () => {
             setLoadingMenu(true)
             try {
-                const response = await getMenu()
-                const data = response
+                const response = await api.get('/menu/')
+                const data = response.data as MenuCategory[]
                 const sortedData = data.map(category => ({
                     ...category,
-                    menuItems: category.menuItems
-                        .filter(item => item.visibility === "Public")
-                        .sort((a, b) => a.name.localeCompare(b.name))
+                    menuItems: category.menuItems.sort((a, b) => a.name.localeCompare(b.name))
                 }))
                 setMenu(sortedData)
             } catch (error) {

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { useMenuStore } from "../stores/useMenuStore"
 import MenuTable from "../components/Menu/MenuTable"
 import MenuItemCard from "../components/Menu/MenuItemCard"
 import type { MenuCategory } from "../types/Menu"
@@ -14,18 +13,17 @@ export default function Menu(){
     const [viewingMode, setViewingMode] = useState<"Card" | "Table">("Table")
     const [loadingMenu, setLoadingMenu] = useState<boolean>(false)
     const [error, setError] = useState<boolean>(false)
-    const { getMenu } = useMenuStore()
 
     // Fetch menu
     useEffect(() => {
         const fetchMenu = async () => {
             setLoadingMenu(true)
             try {
-                const response = await getMenu()
-                const data = response
+                const response = await api.get('/menu/')
+                const data = response.data as MenuCategory[]
                 const sortedData = data.map(category => ({
                     ...category,
-                    menuItems: category.menuItems.sort((a, b) => a.name.localeCompare(b.name)).filter(item => item.visibility === "Public")
+                    menuItems: category.menuItems.sort((a, b) => a.name.localeCompare(b.name))
                 }))
                 setMenu(sortedData)
             } catch (error) {
