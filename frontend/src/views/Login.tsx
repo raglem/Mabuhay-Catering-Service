@@ -2,11 +2,15 @@ import { useState } from "react"
 import api from "../api"
 import { useUserStore } from "../stores/useUserStore"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
+import LoadingSpinner from "../components/LoadingSpinner"
 
 export default function Login(){
     const [username, setUsername] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [showPassword, setShowPassword] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
+
     const { setUser } = useUserStore()
     const navigate = useNavigate()
 
@@ -14,10 +18,11 @@ export default function Login(){
         e.preventDefault()
 
         if(username.length === 0 || password.length === 0){
-            // TODO: Notify user username and password is empty
+            toast.error('Please fill in all fields')
             return
         }
 
+        setLoading(true)
         try{
             const requestBody = {
                 username,
@@ -36,11 +41,18 @@ export default function Login(){
             })
 
             navigate("/admin")
-            // TODO: Tell user login was successful
+            toast.success('Staff login successful')
 
         }
         catch(err){
-            // TODO: Notify user a server error occurred
+            if((err as any).response && (err as any).response.status === 401){
+                toast.error('Invalid username or password')
+                return
+            }
+            toast.error('Something went wrong on login')
+        }
+        finally{
+            setLoading(false)
         }
     }
 
@@ -68,7 +80,8 @@ export default function Login(){
                         Show
                     </span>
                 </div>
-                <div className="flex justify-center">
+                <div className="flex flex-col justify-center items-center gap-y-2">
+                    { loading && <LoadingSpinner />}
                     <button type="submit" className="flex justify-center p-2 w-full md:w-[80%] bg-primary rounded-full text-white cursor-pointer hover:opacity-80">
                         Sign in
                     </button>

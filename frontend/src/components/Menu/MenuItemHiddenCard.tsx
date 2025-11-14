@@ -18,19 +18,18 @@ export default function MenuItemHiddenCard({
         id="eye-slash"
         className="absolute flex text-5xl z-10 text-gray-400 transition-colors duration-200 group-hover:text-primary"
       />
-      <div className="relative flex flex-row items-stretch bg-gray-200 border border-primary rounded-md shadow-lg min-h-[150px] transition-opacity duration-200">
+      <div className="relative flex flex-row items-stretch bg-gray-200 border border-primary rounded-md shadow-lg min-h-[150px] h-full transition-opacity duration-200">
         <div className="flex flex-1 flex-col justify-center gap-y-2 p-4 min-h-full">
           <header className="flex gap-x-2 items-center">
             <FaRegEdit className="text-2xl" />
             <h2 className="text-xl text-black font-bold">{menuItem.name}</h2>
           </header>
           <div className="flex flex-col text-black">
-            <h4 className="text-md">
-              Half Tray: ${menuItem.half_tray_price.toFixed(2)}
-            </h4>
-            <h4 className="text-md">
-              Full Tray: ${menuItem.full_tray_price.toFixed(2)}
-            </h4>
+            { menuItem.half_tray_price !== 0 && <h4 className="text-md">Half Tray: ${ menuItem.half_tray_price.toFixed(2) }</h4>}
+            { menuItem.half_tray_price === 0 && <h4 className="text-md line-through">Half Tra: N/Ay</h4>}
+            
+            { menuItem.full_tray_price !== 0 && <h4 className="text-md">Full Tray: ${ menuItem.full_tray_price.toFixed(2) }</h4>}
+            { menuItem.full_tray_price === 0 && <h4 className="text-md line-through">Full Tray: N/A</h4>}
           </div>
         </div>
         { menuItem.image.length > 0 && <img

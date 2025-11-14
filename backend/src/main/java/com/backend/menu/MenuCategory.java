@@ -3,6 +3,7 @@ package com.backend.menu;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -54,6 +55,9 @@ public class MenuCategory {
     }
 
     public List<MenuItem> getMenuItems() {
+        if(menuItems == null){
+            return new ArrayList<>();
+        }
         return menuItems;
     }
 

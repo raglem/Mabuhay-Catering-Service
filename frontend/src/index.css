@@ -6,6 +6,7 @@
   --color-primary: rgb(103, 190, 49);
   --color-primary-dark: #0d6e34;
   --color-secondary: #eddc24;
+  --breakpoint-xs: 30rem;
 }
 
 :root {

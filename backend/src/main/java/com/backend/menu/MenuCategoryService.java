@@ -5,6 +5,7 @@ import com.backend.menu.dtos.MenuCategoryDetailDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -17,6 +18,7 @@ public class MenuCategoryService {
 
     public List<MenuCategoryDetailDTO> getAll(){
         List<MenuCategory> categories = menuCategoryRepository.findAll();
+        categories.sort(Comparator.comparing(MenuCategory::getOrder));
         List<MenuCategoryDetailDTO> categoriesDTO = new ArrayList<>();
         for (MenuCategory menuCategory : categories) {
             MenuCategoryDetailDTO menuCategoryDTO = new MenuCategoryDetailDTO(menuCategory);
