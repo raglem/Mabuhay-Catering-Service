@@ -60,8 +60,8 @@ export default function MenuItemOrderCard({ menuItem }: { menuItem: MenuItemSimp
                     <IoIosCheckmarkCircle className="text-primary text-3xl" />
                 </div>
             }
-            <div className={`flex flex-1 ${ menuItem.image ? 'flex-col justify-center': 'flex-row justify-between items-center' } gap-y-3 py-8 p-4 min-h-full`}>
-                <div className="flex flex-col gap-y-3">
+            <div className={`flex flex-1 ${ menuItem.image ? 'flex-col justify-center': 'flex-col xs:flex-row justify-between items-center' } gap-y-3 gap-x-4 py-8 p-4 min-h-full`}>
+                <div className="flex flex-col items-center md:items-start gap-y-3">
                     <h2 className="text-xl font-bold">{ menuItem.name }</h2>
                     <div className="flex flex-col">
                         { menuItem.half_tray_price !== 0 && <h4 className="text-md">Half Tray: ${ menuItem.half_tray_price.toFixed(2) }</h4>}

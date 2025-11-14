@@ -59,8 +59,9 @@ export default function Menu(){
     }
 
     return (
-        <div className="page flex flex-col gap-y-2">
-            <nav className="flex flex-row justify-end items-center">
+        <div className="page flex flex-col gap-y-4">
+            <nav className="flex flex-col md:flex-row gap-4 justify-between items-center">
+                <span className="text-2xl font-bold text-primary"> *Please note: tax is not included in the listed prices. </span>
                 <div className="flex flex-row rounded-full overflow-hidden border-1 border-primary bg-white text-primary">
                     <button 
                         className={`flex justify-center items-center py-2 px-4 gap-x-2 ${viewingMode == 'Table' ? 'bg-primary text-white': 'bg-white'}`} 

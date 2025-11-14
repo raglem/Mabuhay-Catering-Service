@@ -81,7 +81,7 @@ export default function Menu(){
                     </div>
                 </div>
             ))}
-            { showCheckoutButton && <div className="flex flex-col items-end gap-y-2 fixed bottom-4 right-4">
+            { showCheckoutButton && <div className="flex flex-col items-end gap-y-2 fixed bottom-4 right-0 xs:right-4 px-4 xs:p-0">
                 { showOrderSummary && <OrderSummary /> }
                 <button 
                     className="flex p-4 bg-primary text-white text-3xl rounded-full transform transition-transform duration-300 hover:scale-120 cursor-pointer"

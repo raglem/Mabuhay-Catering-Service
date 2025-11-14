@@ -55,8 +55,9 @@ export default function CheckoutSummary(){
                     </div>
                 }
                 </ol>
-            <div className="flex flex-row justify-end items-center w-full p-2 border-t-1 border-t-primary text-xl font-extrabold">
-                Total: ${totalPrice.toFixed(2)}
+            <div className="flex flex-col md:flex-row justify-between items-center w-full p-2 gap-y-2 border-t-1 border-t-primary text-xl font-bold">
+                <span className="text-lg text-primary text-extrabold">*Please note: The displayed total does not include tax</span>
+                <span className="text-right">Total: ${totalPrice.toFixed(2)}</span>
             </div>
         </div>
     )

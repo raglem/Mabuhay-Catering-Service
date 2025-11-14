@@ -17,13 +17,13 @@ export default function MenuTable({ menu }: { menu: MenuCategory[] }){
                             >
                                 <span className="font-medium">{ item.name }</span>
                                 <div className="flex flex-col xs:flex-row gap-4 justify-end">
-                                    <span className="flex flex-row items-center gap-x-1">
-                                        <BsSquareHalf className={ `item.half_tray_price == 0 && 'line-through'`}/>
-                                        ${ item.half_tray_price.toFixed(2) }
+                                    <span className="flex flex-row items-center gap-x-1 w-[90px]">
+                                        <BsSquareHalf />
+                                        { item.half_tray_price > 0 ? `$${item.half_tray_price.toFixed(2)}` : 'N/A' }
                                     </span> 
-                                    <span className="flex flex-row items-center gap-x-1">
-                                        <BsSquareFill className={ `item.half_tray_price == 0 && 'line-through'`}/>
-                                        ${ item.full_tray_price.toFixed(2) }
+                                    <span className="flex flex-row items-center gap-x-1 w-[90px]">
+                                        <BsSquareFill className={ item.full_tray_price === 0 ? 'line-through' : '' } />
+                                        { item.full_tray_price > 0 ? `$${item.full_tray_price.toFixed(2)}` : 'N/A' }
                                     </span> 
                                 </div>
                             </div>
