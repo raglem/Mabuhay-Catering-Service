@@ -9,7 +9,7 @@ export default function Home() {
                     <div className="flex flex-col gap-y-2 items-center">
                         <img 
                             src="/location.png" alt="Mabuhay Location" 
-                            className="w-[80%] md:width-full object-cover rounded-md shadow-md mb-4 md:mb-0"
+                            className="w-[80%] md:width-full object-cover rounded-md shadow-md mb-4 md:mb-0 border-2 border-primary-dark"
                         />
                         <footer className="flex flex-col gap-y-2 text-primary-dark text-center">
                             <h2 className="text-primary-dark text-2xl sm:text-3xl font-bold">
@@ -37,7 +37,7 @@ export default function Home() {
                             OPEN 7 DAYS A WEEK
                         </h2>
                         <h2>
-                            7AM - 7PM
+                            7:30AM - 6PM
                         </h2>
                     </div>
                     <div>

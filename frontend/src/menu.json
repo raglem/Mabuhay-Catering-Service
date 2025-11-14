@@ -330,24 +330,6 @@
           "menuCategory": 5
         },
         {
-          "id": 34,
-          "name": "Beans Con Hipon",
-          "visibility": "Public",
-          "half_tray_price": 55.0,
-          "full_tray_price": 110.0,
-          "image": "",
-          "menuCategory": 5
-        },
-        {
-          "id": 35,
-          "name": "Beans Con Carne",
-          "visibility": "Public",
-          "half_tray_price": 55.0,
-          "full_tray_price": 110.0,
-          "image": "",
-          "menuCategory": 5
-        },
-        {
           "id": 36,
           "name": "Ginataang Sitaw/Kalabasa",
           "visibility": "Public",
