@@ -25,7 +25,8 @@
 }
 
 html {
-  filter: none !important;
+  background-color: white !important;
+  color: black !important;
 }
 
 body {
