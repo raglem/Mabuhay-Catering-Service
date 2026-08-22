@@ -464,8 +464,8 @@
           "id": 52,
           "name": "Ginataang Mais",
           "visibility": "Public",
-          "half_tray_price": 45.0,
-          "full_tray_price": 90.0,
+          "half_tray_price": 50.0,
+          "full_tray_price": 100.0,
           "image": "",
           "menuCategory": 7
         },
