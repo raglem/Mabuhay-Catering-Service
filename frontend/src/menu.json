@@ -8,8 +8,8 @@
           "id": 1,
           "name": "Beef Steak",
           "visibility": "Public",
-          "half_tray_price": 75.0,
-          "full_tray_price": 150.0,
+          "half_tray_price": 80.0,
+          "full_tray_price": 160.0,
           "image": "",
           "menuCategory": 1
         },
@@ -17,8 +17,8 @@
           "id": 2,
           "name": "Kaldereta",
           "visibility": "Public",
-          "half_tray_price": 70.0,
-          "full_tray_price": 140.0,
+          "half_tray_price": 75.0,
+          "full_tray_price": 150.0,
           "image": "",
           "menuCategory": 1
         },
@@ -26,8 +26,8 @@
           "id": 3,
           "name": "Mechado",
           "visibility": "Public",
-          "half_tray_price": 70.0,
-          "full_tray_price": 140.0,
+          "half_tray_price": 75.0,
+          "full_tray_price": 150.0,
           "image": "",
           "menuCategory": 1
         },
@@ -35,8 +35,8 @@
           "id": 4,
           "name": "Kare-Kare",
           "visibility": "Public",
-          "half_tray_price": 75.0,
-          "full_tray_price": 150.0,
+          "half_tray_price": 80.0,
+          "full_tray_price": 160.0,
           "image": "",
           "menuCategory": 1
         },
@@ -44,8 +44,8 @@
           "id": 5,
           "name": "Roast Beef",
           "visibility": "Public",
-          "half_tray_price": 80.0,
-          "full_tray_price": 160.0,
+          "half_tray_price": 85.0,
+          "full_tray_price": 170.0,
           "image": "",
           "menuCategory": 1
         },
@@ -53,8 +53,8 @@
           "id": 7,
           "name": "Beef Tapa",
           "visibility": "Public",
-          "half_tray_price": 75.0,
-          "full_tray_price": 150.0,
+          "half_tray_price": 80.0,
+          "full_tray_price": 160.0,
           "image": "",
           "menuCategory": 1
         }
@@ -69,8 +69,8 @@
           "id": 8,
           "name": "Igado",
           "visibility": "Public",
-          "half_tray_price": 65.0,
-          "full_tray_price": 130.0,
+          "half_tray_price": 70.0,
+          "full_tray_price": 140.0,
           "image": "",
           "menuCategory": 2
         },
@@ -78,8 +78,8 @@
           "id": 9,
           "name": "Menudo",
           "visibility": "Public",
-          "half_tray_price": 65.0,
-          "full_tray_price": 130.0,
+          "half_tray_price": 70.0,
+          "full_tray_price": 140.0,
           "image": "",
           "menuCategory": 2
         },
@@ -87,8 +87,8 @@
           "id": 11,
           "name": "Lechon Kawali",
           "visibility": "Public",
-          "half_tray_price": 70.0,
-          "full_tray_price": 140.0,
+          "half_tray_price": 75.0,
+          "full_tray_price": 150.0,
           "image": "",
           "menuCategory": 2
         },
@@ -105,8 +105,8 @@
           "id": 14,
           "name": "Dinuguan",
           "visibility": "Public",
-          "half_tray_price": 65.0,
-          "full_tray_price": 130.0,
+          "half_tray_price": 70.0,
+          "full_tray_price": 140.0,
           "image": "",
           "menuCategory": 2
         },
@@ -114,17 +114,8 @@
           "id": 15,
           "name": "Adobo",
           "visibility": "Public",
-          "half_tray_price": 65.0,
-          "full_tray_price": 130.0,
-          "image": "",
-          "menuCategory": 2
-        },
-        {
-          "id": 16,
-          "name": "Batchoy",
-          "visibility": "Public",
-          "half_tray_price": 60.0,
-          "full_tray_price": 120.0,
+          "half_tray_price": 70.0,
+          "full_tray_price": 140.0,
           "image": "",
           "menuCategory": 2
         },
@@ -132,8 +123,8 @@
           "id": 17,
           "name": "Bopis",
           "visibility": "Public",
-          "half_tray_price": 75.0,
-          "full_tray_price": 150.0,
+          "half_tray_price": 80.0,
+          "full_tray_price": 160.0,
           "image": "",
           "menuCategory": 2
         },
@@ -141,8 +132,8 @@
           "id": 18,
           "name": "Pinatisan Ribs",
           "visibility": "Public",
-          "half_tray_price": 65.0,
-          "full_tray_price": 130.0,
+          "half_tray_price": 70.0,
+          "full_tray_price": 140.0,
           "image": "",
           "menuCategory": 2
         },
@@ -150,8 +141,8 @@
           "id": 19,
           "name": "Bicol Express",
           "visibility": "Public",
-          "half_tray_price": 70.0,
-          "full_tray_price": 140.0,
+          "half_tray_price": 75.0,
+          "full_tray_price": 150.0,
           "image": "",
           "menuCategory": 2
         },
@@ -159,8 +150,8 @@
           "id": 20,
           "name": "Tocino",
           "visibility": "Public",
-          "half_tray_price": 65.0,
-          "full_tray_price": 130.0,
+          "half_tray_price": 70.0,
+          "full_tray_price": 140.0,
           "image": "",
           "menuCategory": 2
         },
@@ -194,7 +185,7 @@
           "name": "Terriyaki",
           "visibility": "Public",
           "half_tray_price": 0.0,
-          "full_tray_price": 140.0,
+          "full_tray_price": 150.0,
           "image": "",
           "menuCategory": 3
         },
@@ -202,8 +193,8 @@
           "id": 22,
           "name": "Sesame Chicken",
           "visibility": "Public",
-          "half_tray_price": 65.0,
-          "full_tray_price": 130.0,
+          "half_tray_price": 70.0,
+          "full_tray_price": 140.0,
           "image": "",
           "menuCategory": 3
         },
@@ -211,8 +202,8 @@
           "id": 23,
           "name": "Adobo",
           "visibility": "Public",
-          "half_tray_price": 60.0,
-          "full_tray_price": 120.0,
+          "half_tray_price": 65.0,
+          "full_tray_price": 130.0,
           "image": "",
           "menuCategory": 3
         },
@@ -272,8 +263,8 @@
           "id": 29,
           "name": "Sweet & Sour Fish",
           "visibility": "Public",
-          "half_tray_price": 65.0,
-          "full_tray_price": 130.0,
+          "half_tray_price": 70.0,
+          "full_tray_price": 140.0,
           "image": "",
           "menuCategory": 4
         },
@@ -281,8 +272,8 @@
           "id": 58,
           "name": "Kaldereta Kambing",
           "visibility": "Public",
-          "half_tray_price": 80.0,
-          "full_tray_price": 160.0,
+          "half_tray_price": 85.0,
+          "full_tray_price": 170.0,
           "image": "",
           "menuCategory": 4
         },
@@ -290,8 +281,8 @@
           "id": 59,
           "name": "Dinakdakan",
           "visibility": "Public",
-          "half_tray_price": 80.0,
-          "full_tray_price": 160.0,
+          "half_tray_price": 85.0,
+          "full_tray_price": 170.0,
           "image": "",
           "menuCategory": 4
         }
@@ -306,8 +297,8 @@
           "id": 30,
           "name": "Pinakbet",
           "visibility": "Public",
-          "half_tray_price": 55.0,
-          "full_tray_price": 110.0,
+          "half_tray_price": 60.0,
+          "full_tray_price": 120.0,
           "image": "",
           "menuCategory": 5
         },
@@ -324,8 +315,8 @@
           "id": 32,
           "name": "Ginataang Langka",
           "visibility": "Public",
-          "half_tray_price": 60.0,
-          "full_tray_price": 120.0,
+          "half_tray_price": 65.0,
+          "full_tray_price": 130.0,
           "image": "",
           "menuCategory": 5
         },
@@ -334,25 +325,7 @@
           "name": "Chopsuey",
           "visibility": "Public",
           "half_tray_price": 0.0,
-          "full_tray_price": 120.0,
-          "image": "",
-          "menuCategory": 5
-        },
-        {
-          "id": 36,
-          "name": "Ginataang Sitaw/Kalabasa",
-          "visibility": "Public",
-          "half_tray_price": 55.0,
-          "full_tray_price": 110.0,
-          "image": "",
-          "menuCategory": 5
-        },
-        {
-          "id": 37,
-          "name": "Ginisang Beans Sprout",
-          "visibility": "Public",
-          "half_tray_price": 55.0,
-          "full_tray_price": 110.0,
+          "full_tray_price": 130.0,
           "image": "",
           "menuCategory": 5
         },
@@ -360,8 +333,8 @@
           "id": 38,
           "name": "Ginisang Ampalaya",
           "visibility": "Public",
-          "half_tray_price": 55.0,
-          "full_tray_price": 110.0,
+          "half_tray_price": 60.0,
+          "full_tray_price": 120.0,
           "image": "",
           "menuCategory": 5
         },
@@ -369,8 +342,8 @@
           "id": 39,
           "name": "Laing",
           "visibility": "Public",
-          "half_tray_price": 60.0,
-          "full_tray_price": 120.0,
+          "half_tray_price": 65.0,
+          "full_tray_price": 130.0,
           "image": "",
           "menuCategory": 5
         },
@@ -379,7 +352,7 @@
           "name": "Fresh Lumpia Hubad",
           "visibility": "Public",
           "half_tray_price": 0.0,
-          "full_tray_price": 130.0,
+          "full_tray_price": 140.0,
           "image": "",
           "menuCategory": 5
         }
@@ -413,7 +386,7 @@
           "name": "Sotanghon",
           "visibility": "Public",
           "half_tray_price": 0.0,
-          "full_tray_price": 90.0,
+          "full_tray_price": 100.0,
           "image": "",
           "menuCategory": 6
         },
@@ -422,7 +395,7 @@
           "name": "Canton",
           "visibility": "Public",
           "half_tray_price": 0.0,
-          "full_tray_price": 90.0,
+          "full_tray_price": 100.0,
           "image": "",
           "menuCategory": 6
         },
@@ -430,8 +403,8 @@
           "id": 45,
           "name": "Bihon",
           "visibility": "Public",
-          "half_tray_price": 40.0,
-          "full_tray_price": 80.0,
+          "half_tray_price": 45.0,
+          "full_tray_price": 90.0,
           "image": "",
           "menuCategory": 6
         },
@@ -439,8 +412,8 @@
           "id": 46,
           "name": "Miki/Bihon",
           "visibility": "Public",
-          "half_tray_price": 45.0,
-          "full_tray_price": 90.0,
+          "half_tray_price": 50.0,
+          "full_tray_price": 100.0,
           "image": "",
           "menuCategory": 6
         },
@@ -448,8 +421,8 @@
           "id": 47,
           "name": "Rice",
           "visibility": "Public",
-          "half_tray_price": 20.0,
-          "full_tray_price": 40.0,
+          "half_tray_price": 25.0,
+          "full_tray_price": 50.0,
           "image": "",
           "menuCategory": 6
         },
@@ -457,17 +430,8 @@
           "id": 48,
           "name": "Garlic Rice",
           "visibility": "Public",
-          "half_tray_price": 25.0,
-          "full_tray_price": 50.0,
-          "image": "",
-          "menuCategory": 6
-        },
-        {
-          "id": 49,
-          "name": "Spaghetti",
-          "visibility": "Public",
-          "half_tray_price": 0.0,
-          "full_tray_price": 100.0,
+          "half_tray_price": 30.0,
+          "full_tray_price": 60.0,
           "image": "",
           "menuCategory": 6
         }
@@ -482,8 +446,8 @@
           "id": 50,
           "name": "Ginataang Bilo-Bilo",
           "visibility": "Public",
-          "half_tray_price": 45.0,
-          "full_tray_price": 90.0,
+          "half_tray_price": 50.0,
+          "full_tray_price": 100.0,
           "image": "",
           "menuCategory": 7
         },
@@ -500,8 +464,8 @@
           "id": 52,
           "name": "Ginataang Mais",
           "visibility": "Public",
-          "half_tray_price": 40.0,
-          "full_tray_price": 80.0,
+          "half_tray_price": 45.0,
+          "full_tray_price": 90.0,
           "image": "",
           "menuCategory": 7
         },
@@ -509,8 +473,8 @@
           "id": 53,
           "name": "Matamis Na Saging",
           "visibility": "Public",
-          "half_tray_price": 40.0,
-          "full_tray_price": 80.0,
+          "half_tray_price": 45.0,
+          "full_tray_price": 90.0,
           "image": "",
           "menuCategory": 7
         },
@@ -518,8 +482,8 @@
           "id": 55,
           "name": "Buko Pandan",
           "visibility": "Public",
-          "half_tray_price": 45.0,
-          "full_tray_price": 90.0,
+          "half_tray_price": 50.0,
+          "full_tray_price": 100.0,
           "image": "",
           "menuCategory": 7
         },
